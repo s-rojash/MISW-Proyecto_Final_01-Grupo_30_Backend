@@ -10,20 +10,25 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        int number = 0;
 
-        System.out.println("Azure Queue Storage client library - Java quickstart sample\n");
+        while(number == 0) {
+            //Unique name for the queue
+            String queueName = "quickstartqueues-test1";//+ java.util.UUID.randomUUID();
 
-        // Create a unique name for the queue
-        String queueName = "quickstartqueues-test1" ;//+ java.util.UUID.randomUUID();
+            QueueClient queueClient = Access(queueName);
+            //CreateQueue(queueClient, queueName);
+            //SendMessageResult result = AddMessages(queueClient);
+            //PeekMessages(queueClient);
+            //UpdateMessage(queueClient, result);
+            long totalMessages = GetQueueLength(queueClient);
+            System.out.println(String.format("Mensajes totales: %d", totalMessages));
 
-        QueueClient queueClient = Access(queueName);
-        //CreateQueue(queueClient, queueName);
-        //SendMessageResult result = AddMessages(queueClient);
-        PeekMessages(queueClient);
-        //UpdateMessage(queueClient, result);
-        GetQueueLength(queueClient);
-        ReceiveandDeleteMessages(queueClient);
+            if (totalMessages > 0)
+                ReceiveandDeleteMessages(queueClient);
+            else
+                System.out.println("No messages in the queue.");
+        }
         //DeleteQueue(queueClient);
     }
 
@@ -66,7 +71,7 @@ public class App
         System.out.println("\nPeek at the messages in the queue...");
 
         // Peek at messages in the queue
-        queueClient.peekMessages(10, null, null).forEach(
+        queueClient.peekMessages(1, null, null).forEach(
                 peekedMessage -> System.out.println("Message: " + peekedMessage.getMessageText()));
     }
 
@@ -81,23 +86,35 @@ public class App
                 Duration.ofSeconds(1));
     }
 
-    static void GetQueueLength(QueueClient queueClient){
+    static long GetQueueLength(QueueClient queueClient){
         QueueProperties properties = queueClient.getProperties();
         long messageCount = properties.getApproximateMessagesCount();
 
         System.out.println(String.format("Queue length: %d", messageCount));
+        return messageCount;
     }
 
     static void ReceiveandDeleteMessages(QueueClient queueClient){
         // Get messages from the queue
-        queueClient.receiveMessages(10).forEach(
+        queueClient.receiveMessages(1).forEach(
                 // "Process" the message
                 receivedMessage -> {
-                    System.out.println("Message: " + receivedMessage.getMessageText());
+                    try {
+                        System.out.println("Message: " + receivedMessage.getMessageText());
+                        // Let the service know we're finished with
+                        // the messageand it can be safely deleted.
+                        queueClient.deleteMessage(receivedMessage.getMessageId(), receivedMessage.getPopReceipt());
+                        //queueClient.deleteMessage(String.valueOf(-10), receivedMessage.getPopReceipt());
+                    }
+                    catch (Exception ex){
+                        System.out.println("Ocurrio un error: " + ex.getMessage());
+                    }
 
-                    // Let the service know we're finished with
-                    // the messageand it can be safely deleted.
-                    queueClient.deleteMessage(receivedMessage.getMessageId(), receivedMessage.getPopReceipt());
+                    try {
+                        Thread.sleep(6000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
         );
     }
