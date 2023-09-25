@@ -102,18 +102,21 @@ public class App
                     try {
                         System.out.println("Message: " + receivedMessage.getMessageText());
                         // Let the service know we're finished with
+                        //Error intencional
+                        //int i = 1/0;
+
+                        try {
+                            Thread.sleep(6000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                         // the messageand it can be safely deleted.
                         queueClient.deleteMessage(receivedMessage.getMessageId(), receivedMessage.getPopReceipt());
+                        //Error intencionado 2
                         //queueClient.deleteMessage(String.valueOf(-10), receivedMessage.getPopReceipt());
                     }
                     catch (Exception ex){
                         System.out.println("Ocurrio un error: " + ex.getMessage());
-                    }
-
-                    try {
-                        Thread.sleep(6000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
                     }
                 }
         );
