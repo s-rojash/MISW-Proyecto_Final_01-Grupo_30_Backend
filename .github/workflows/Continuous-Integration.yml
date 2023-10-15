@@ -30,7 +30,7 @@ jobs:
       - name: Run test suite
         working-directory: .
         run: |
-          mvn test -file candidatos/pom.xml
+          mvn test package --file candidatos/pom.xml
       
       - name: Add coverage to PR
         id: jacoco
