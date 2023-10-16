@@ -28,7 +28,7 @@ jobs:
           distribution: "temurin"
           cache: maven
       - name: Run test suite
-        working-directory: ./candidatos
+        working-directory: candidatos
         run: |
           mvn test
       
