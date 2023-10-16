@@ -31,11 +31,3 @@ En este aparatado se menciona la herramienta utilizada para el análisis de cove
 ![img_2.png](img_2.png)
 
 ![img.png](img.png)
-
-### Ejecutar el servicio
-
-Para ejecutar el jar usted debe posicionarse en la siguiente ruta /proyectofinalg30/candidatos/target y ejecutar el comando java -jar Prueba-Tecnica-INTCOMEX-0.0.1-SNAPSHOT, para esto el equipo debe contar con el JDK 19 o el OpenJDK.
-
-Si desea compilar nuevamente el jar usted se debe posicionarse en la raíz del proyecto y ejecutar el comando mvn install y este se alojará en la ruta mencionada anteriormente /Prueba-Tecnica-INTCOMEX/target
-
-Puerto configurado es el 8080, por lo que la ruta sería la siguiente http:/localhost:8080/.
