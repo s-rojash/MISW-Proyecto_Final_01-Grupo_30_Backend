@@ -27,9 +27,10 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/candidatos/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/candidatos/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze
+        working-directory: candidatos
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
