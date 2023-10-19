@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: ContinuousIntegration
+name: CI - ms-candidatos
 
 # Controls when the workflow will run
 on:
@@ -28,31 +28,16 @@ jobs:
           distribution: "temurin"
           cache: maven
       # Candidatos
-      - name: Run test suite candidatos
+      - name: Run test suite
         working-directory: candidatos
         run: |
           mvn test
       
-      - name: Add coverage to PR candidatos
-        id: jacoco-candidatos
+      - name: Add coverage to PR
+        id: jacoco
         uses: madrapps/jacoco-report@v1.3
         with:
           paths: ${{ github.workspace }}/candidatos/target/site/jacoco/jacoco.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 80
-          min-coverage-changed-files: 80
-
-      # Empresas
-      - name: Run test suite empresas
-        working-directory: empresas
-        run: |
-          mvn test
-      
-      - name: Add coverage to PR empresas
-        id: jacoco-empresas
-        uses: madrapps/jacoco-report@v1.3
-        with:
-          paths: ${{ github.workspace }}/empresas/target/site/jacoco/jacoco.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 80
