@@ -6,13 +6,13 @@ name: ContinuousIntegration
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "main"]
+    branches: [ "develop", "main" ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  # This workflow contains a single job called "build" candidatos
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -27,16 +27,34 @@ jobs:
           java-version: "19"
           distribution: "temurin"
           cache: maven
-      - name: Run test suite
+      # Candidatos
+      - name: Run test suite candidatos
         working-directory: candidatos
         run: |
           mvn test
       
-      - name: Add coverage to PR
-        id: jacoco
+      - name: Add coverage to PR candidatos
+        id: jacoco-candidatos
         uses: madrapps/jacoco-report@v1.3
         with:
           paths: ${{ github.workspace }}/candidatos/target/site/jacoco/jacoco.xml
           token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
+
+      # Empresas
+      - name: Run test suite empresas
+        working-directory: empresas
+        run: |
+          mvn test
+      
+      - name: Add coverage to PR empresas
+        id: jacoco-empresas
+        uses: madrapps/jacoco-report@v1.3
+        with:
+          paths: ${{ github.workspace }}/empresas/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
           min-coverage-overall: 80
           min-coverage-changed-files: 80
