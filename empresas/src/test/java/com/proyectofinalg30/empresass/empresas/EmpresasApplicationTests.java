@@ -227,7 +227,7 @@ class EmpresasApplicationTests {
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Ping user")
+    @DisplayName(value = "Test Controller - Ping pong")
     @Order(14)
     void testPing() throws Exception {
         mockMvc.perform(get("/empresas/ping").contentType(MediaType.APPLICATION_JSON))
