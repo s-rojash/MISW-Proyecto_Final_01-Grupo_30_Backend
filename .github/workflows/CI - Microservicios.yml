@@ -28,17 +28,22 @@ jobs:
           distribution: "temurin"
           cache: maven
         
-      - name: Run test suite 
+      - name: Run test suite candidatos
         working-directory: candidatos
         run: |
           mvn test
 
-      - name: Run test suite 
+      - name: Run test suite empresas
         working-directory: empresas
         run: |
           mvn test
+
+      - name: Run test suite proyectos
+        working-directory: proyectos
+        run: |
+          mvn test
           
-      - name: Add coverage to PR
+      - name: Add coverage to PR candidatos
         id: jacoco
         uses: madrapps/jacoco-report@v1.3
         with:
@@ -47,7 +52,7 @@ jobs:
           min-coverage-overall: 80
           min-coverage-changed-files: 80
 
-      - name: Add coverage to PR
+      - name: Add coverage to PR empresas
         id: jacoco-1
         uses: madrapps/jacoco-report@v1.3
         with:
@@ -55,4 +60,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 80
-      
+
+      - name: Add coverage to PR empresas
+        id: jacoco-2
+        uses: madrapps/jacoco-report@v1.3
+        with:
+          paths: ${{ github.workspace }}/proyectos/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-files: 80
