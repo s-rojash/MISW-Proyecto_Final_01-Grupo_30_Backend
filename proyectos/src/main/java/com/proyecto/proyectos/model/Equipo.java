@@ -1,15 +1,11 @@
 package com.proyecto.proyectos.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.imageio.plugins.jpeg.JPEGImageReadParam;
-import java.util.Set;
 
 
 @Getter

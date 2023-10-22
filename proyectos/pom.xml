@@ -119,6 +119,8 @@
                 <configuration>
                     <excludes>
                         <exclude>com/proyecto/proyectos/service/*.class</exclude>
+                        <exclude>com/proyecto/proyectos/repository/*.class</exclude>
+                        <exclude>com/proyecto/proyectos/model/Equipo.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
