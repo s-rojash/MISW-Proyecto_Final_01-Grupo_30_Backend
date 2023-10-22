@@ -6,6 +6,8 @@ import com.proyecto.proyectos.model.Equipo;
 import com.proyecto.proyectos.model.Perfil;
 import com.proyecto.proyectos.model.Proyecto;
 import com.proyecto.proyectos.service.EquipoService;
+import com.proyecto.proyectos.service.PerfilService;
+import com.proyecto.proyectos.service.ProyectoService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,6 +30,7 @@ class EquiposApplicationTests {
 
     @MockBean
     private EquipoService equipoService;
+
     ObjectMapper objectMapper;
     @BeforeEach
     void config() {
@@ -60,7 +63,9 @@ class EquiposApplicationTests {
     @DisplayName(value = "Test Controller - Get all equipos")
     @Order(2)
     void getAllEquipo() throws Exception {
-        Equipo equipo = new Equipo();
+        Perfil perfil = new Perfil(5L, "Perfil 1");
+        Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
+        Equipo equipo = new Equipo(5L, proyecto, "Equipo 1", perfil, 1);
 
         mockMvc.perform(get("/equipos/empresa/1"))
                 .andExpect(status().isOk());
