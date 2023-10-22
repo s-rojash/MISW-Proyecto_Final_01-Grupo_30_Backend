@@ -12,9 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Date;
-import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -30,7 +27,6 @@ class ProyectosApplicationTests {
 
     @MockBean
     private ProyectoService proyectoService;
-    private ProyectoRepository proyectoRepository;
     ObjectMapper objectMapper;
     @BeforeEach
     void config() {
