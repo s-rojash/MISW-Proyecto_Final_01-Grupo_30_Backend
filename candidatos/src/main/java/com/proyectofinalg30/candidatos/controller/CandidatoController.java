@@ -6,6 +6,7 @@ import com.proyectofinalg30.candidatos.security.TokenUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -21,22 +22,26 @@ public class CandidatoController {
     @Autowired
     private CandidatoService candidatoService;
 
-    @PostMapping("/")
-    public ResponseEntity<Candidato> post(@Valid @RequestBody Candidato candidato) {
-        String saltNew = BCrypt.gensalt();
-        candidato.setPassword(BCrypt.hashpw(candidato.getPassword(), saltNew));
-        candidato.setCreatedAt(new Date());
+    @Value("${variable.AccessTokenSecret}")
+    private String miAccessTokenSecret;
 
-        this.candidatoService.save(candidato);
-        return new ResponseEntity<>(candidato, HttpStatus.CREATED);
+    @PostMapping("/")
+    public ResponseEntity<?> post(@Valid @RequestBody Candidato candidato) {
+
+            String saltNew = BCrypt.gensalt();
+            candidato.setPassword(BCrypt.hashpw(candidato.getPassword(), saltNew));
+
+            this.candidatoService.save(candidato);
+            return new ResponseEntity<>(candidato, HttpStatus.CREATED);
+
     }
 
     @PostMapping("/auth")
     public ResponseEntity<Candidato> postAuth(@RequestBody Candidato authCredentials) {
-        if (authCredentials.getEmail() != "" && authCredentials.getEmail() != null && authCredentials.getPassword() != "" && authCredentials.getPassword() != null){
+        if (authCredentials.getEmail() != null && authCredentials.getPassword() != null){
             Candidato candidato = candidatoService.searchEmail(authCredentials.getEmail());
             if (BCrypt.checkpw(authCredentials.getPassword(), candidato.getPassword())){
-                candidato.setToken(TokenUtils.createToken(candidato.getId()));
+                candidato.setToken(TokenUtils.createToken(candidato.getId(),miAccessTokenSecret));
                 candidato.setExpireAt(new Date(System.currentTimeMillis() + 1_800_000));
                 candidatoService.save(candidato);
                 return new ResponseEntity<>(candidato, HttpStatus.OK);

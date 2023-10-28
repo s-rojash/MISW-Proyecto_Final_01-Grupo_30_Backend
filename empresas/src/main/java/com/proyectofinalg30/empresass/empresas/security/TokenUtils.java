@@ -10,7 +10,7 @@ import java.util.Map;
 public class TokenUtils {
 
     private static final String ACCESS_TOKEN_SECRET = "4qhq8LrEBfYcaRHxhdb9zURb2rf8e7Ud";
-    private static final Integer ACCESS_TOKEN_VALIDITY_SECONDS = 1_800; // 1_800 segundos = 30 minutos
+    private static final Integer ACCESS_TOKEN_VALIDITY_SECONDS = 1_800_000_000; // 1_800 segundos = 30 minutos
 
     public static String createToken(Long id) {
         Integer expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1000;

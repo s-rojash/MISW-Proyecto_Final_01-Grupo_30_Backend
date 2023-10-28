@@ -1,7 +1,6 @@
 package com.proyecto.proyectos.repository;
 
 import com.proyecto.proyectos.model.Equipo;
-import com.proyecto.proyectos.model.Proyecto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -5,6 +5,7 @@ import com.proyecto.proyectos.controller.EquipoController;
 import com.proyecto.proyectos.model.Equipo;
 import com.proyecto.proyectos.model.Perfil;
 import com.proyecto.proyectos.model.Proyecto;
+import com.proyecto.proyectos.repository.EquipoRepository;
 import com.proyecto.proyectos.service.EquipoService;
 import com.proyecto.proyectos.service.PerfilService;
 import com.proyecto.proyectos.service.ProyectoService;

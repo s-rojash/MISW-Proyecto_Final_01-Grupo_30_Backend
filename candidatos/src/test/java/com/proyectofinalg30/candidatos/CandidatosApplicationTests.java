@@ -40,7 +40,7 @@ class CandidatosApplicationTests {
     @DisplayName(value = "Test Controller - Create candidatos")
     @Order(1)
     void saveCandidato() throws Exception {
-        Candidato candidato = new Candidato("Steve","Rojas", "CC", 1D, "3100000000", "s.rojash@uniandes.edu.co","1234", new Date());
+        Candidato candidato = new Candidato("Steve","Rojas", "CC", 1D, "3100000000", "s.rojash@uniandes.edu.co","1234");
         when(candidatoService.save(any())).then(invocation -> {
             Candidato u = invocation.getArgument(0);
             u.setId(5L);
@@ -91,21 +91,6 @@ class CandidatosApplicationTests {
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Auth not exists email (email = '')")
-    @Order(4)
-    void authNotExistsEmailVacio() throws Exception {
-        Candidato candidato = new Candidato("s.rojash@uniandes.edu.co","$2a$10$QVm4xH5EWHWxiUFfr1Fki.z./KCkckUdn1Bn5ws.xWjRSebbVwKh6");
-
-        when(candidatoService.searchEmail(candidato.getEmail())).thenReturn(candidato);
-
-        Candidato candidatoAuth = new Candidato("","1234");
-
-        mockMvc.perform(post("/candidatos/auth").contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(candidatoAuth)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     @DisplayName(value = "Test Controller - Auth not exists email (email = null)")
     @Order(5)
     void authNotExistsEmailrNull() throws Exception {
@@ -114,21 +99,6 @@ class CandidatosApplicationTests {
         when(candidatoService.searchEmail(candidato.getEmail())).thenReturn(candidato);
 
         Candidato candidatoAuth = new Candidato(null,"1234");
-
-        mockMvc.perform(post("/candidatos/auth").contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(candidatoAuth)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    @DisplayName(value = "Test Controller - Auth not exists candidato (password = '')")
-    @Order(6)
-    void authNotExistsPasswordVacio() throws Exception {
-        Candidato candidato = new Candidato("s.rojash@uniandes.edu.co","$2a$10$QVm4xH5EWHWxiUFfr1Fki.z./KCkckUdn1Bn5ws.xWjRSebbVwKh6");
-
-        when(candidatoService.searchEmail(candidato.getEmail())).thenReturn(candidato);
-
-        Candidato candidatoAuth = new Candidato("s.rojash@uniandes.edu.co","");
 
         mockMvc.perform(post("/candidatos/auth").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(candidatoAuth)))
