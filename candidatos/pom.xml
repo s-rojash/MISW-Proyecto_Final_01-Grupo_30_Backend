@@ -14,7 +14,7 @@
     <name>candidatos</name>
     <description>candidatos</description>
     <properties>
-        <java.version>19</java.version>
+        <java.version>17</java.version>
         <sonar.organization>s-rojash</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
