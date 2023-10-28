@@ -34,12 +34,12 @@ jobs:
         working-directory: candidatos
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ e0dc5fa168e6b940b7a1225e5bcfaa77d6f33d68 }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_CANDIDATOS }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=s-rojash_MISW-Proyecto_Final_01-Grupo_30_Backend_candidatos
 
       - name: Build and analyze empresas
         working-directory: empresas
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ d2362c02231eb12d0b36146f891634458b2c4256 }}
+          SONAR_TOKEN: ${{ secret.SONAR_TOKEN_EMPRESAS }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=s-rojash_MISW-Proyecto_Final_01-Grupo_30_Backend_empresas
