@@ -2,7 +2,7 @@ name: SonarCloud - Main Candidato
 on:
   push:
     branches:
-      - feature/candidatos
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
