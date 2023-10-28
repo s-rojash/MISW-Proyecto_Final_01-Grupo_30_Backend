@@ -1,4 +1,4 @@
-name: SonarCloud - Candidato
+name: SonarCloud - Main Candidato
 on:
   push:
     branches:
