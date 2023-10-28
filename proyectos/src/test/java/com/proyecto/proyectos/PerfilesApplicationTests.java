@@ -3,7 +3,7 @@ package com.proyecto.proyectos;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.proyectos.controller.PerfilController;
 import com.proyecto.proyectos.model.Perfil;
-import com.proyecto.proyectos.model.Proyecto;
+import com.proyecto.proyectos.repository.PerfilRepository;
 import com.proyecto.proyectos.service.PerfilService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -27,6 +29,7 @@ class PerfilesApplicationTests {
 
     @MockBean
     private PerfilService perfilService;
+
     ObjectMapper objectMapper;
     @BeforeEach
     void config() {

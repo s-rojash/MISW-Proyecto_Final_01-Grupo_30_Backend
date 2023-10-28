@@ -4,7 +4,6 @@ import com.proyecto.proyectos.model.Proyecto;
 import com.proyecto.proyectos.repository.ProyectoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
