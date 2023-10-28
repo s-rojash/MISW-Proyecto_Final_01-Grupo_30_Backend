@@ -15,10 +15,8 @@
     <description>proyectos</description>
     <properties>
         <java.version>17</java.version>
-        <sonar.host.url>http://localhost:9000</sonar.host.url>
-        <sonar.proyectkey>com-proyecto-proyectos</sonar.proyectkey>
-        <sonar.token>sqp_946fdb2ae8ddc0853ffe8f6cc4df70530d68683f</sonar.token>
-        <sonar.exclusions>com/proyecto/proyectos/service/*.class, com/proyecto/proyectos/model/Equipo.class, com/proyecto/proyectos/ProyectosApplication.class</sonar.exclusions>
+        <sonar.organization>s-rojash</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
     <dependencies>
         <dependency>
@@ -43,11 +41,6 @@
         <dependency>
             <groupId>com.microsoft.sqlserver</groupId>
             <artifactId>mssql-jdbc</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -116,7 +109,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>50%</minimum>
+                                            <minimum>80%</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
@@ -128,17 +121,7 @@
                     <excludes>
                         <exclude>com/proyecto/proyectos/service/*.class</exclude>
                         <exclude>com/proyecto/proyectos/model/Equipo.class</exclude>
-                        <exclude>com/proyecto/proyectos/ProyectosApplication.class</exclude>
                     </excludes>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.9.1.2184</version>
-                <configuration>
-                    <sonar.skip>true</sonar.skip>
                 </configuration>
             </plugin>
         </plugins>

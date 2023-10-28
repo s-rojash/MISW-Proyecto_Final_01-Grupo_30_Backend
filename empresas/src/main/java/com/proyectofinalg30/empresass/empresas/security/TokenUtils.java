@@ -9,10 +9,12 @@ import java.util.Map;
 
 public class TokenUtils {
 
-    private static final String ACCESS_TOKEN_SECRET = "4qhq8LrEBfYcaRHxhdb9zURb2rf8e7Ud";
-    private static final Integer ACCESS_TOKEN_VALIDITY_SECONDS = 1_800_000_000; // 1_800 segundos = 30 minutos
+    private TokenUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+    private static final Integer ACCESS_TOKEN_VALIDITY_SECONDS = 1_800_000; // 1_800 segundos = 30 minutos
 
-    public static String createToken(Long id) {
+    public static String createToken(Long id, String miAccessTokenSecret) {
         Integer expirationTime = ACCESS_TOKEN_VALIDITY_SECONDS * 1000;
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
 
@@ -27,7 +29,7 @@ public class TokenUtils {
                 .setNotBefore(new Date(System.currentTimeMillis()))
                 .setExpiration(expirationDate)
                 .addClaims(extra)
-                .signWith(SignatureAlgorithm.HS256, ACCESS_TOKEN_SECRET.getBytes()) //.signWith(Keys.hmacShaKeyFor(ACCESS_TOKEN_SECRET.getBytes()))
+                .signWith(SignatureAlgorithm.HS256, miAccessTokenSecret.getBytes()) //.signWith(Keys.hmacShaKeyFor(ACCESS_TOKEN_SECRET.getBytes()))
                 .compact();
     }
 }
