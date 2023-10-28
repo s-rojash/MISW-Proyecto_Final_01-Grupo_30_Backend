@@ -41,12 +41,12 @@ public class ProyectoController {
             JsonNode jsonMap;
             try { jsonMap = objectMapper.readTree(stringJason); } catch (JsonProcessingException e) { throw new RuntimeException(e); }
             proyecto.setIdEmpresa(Long.valueOf(String.valueOf(jsonMap.get("id"))));
+            this.proyectoService.save(proyecto);
+            return new ResponseEntity<>(proyecto, HttpStatus.CREATED);
         }
         else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        this.proyectoService.save(proyecto);
-        return new ResponseEntity<>(proyecto, HttpStatus.CREATED);
     }
 
     @GetMapping("/")
