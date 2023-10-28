@@ -1,15 +1,18 @@
 package com.proyecto.proyectos.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.proyectos.model.Proyecto;
 import com.proyecto.proyectos.service.ProyectoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,10 +22,31 @@ public class ProyectoController {
     @Autowired
     private ProyectoService proyectoService;
 
+    @Value("${variable.MicroServicioEmpresa}")
+    private String microServicioEmpresa;
+
+    private static final String AUTHORIZATION = "Authorization";
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
     @PostMapping("/")
-    public ResponseEntity<Proyecto> post(@Valid @RequestBody Proyecto proyecto) {
-        this.proyectoService.save(proyecto);
-        return new ResponseEntity<>(proyecto, HttpStatus.CREATED);
+    public ResponseEntity<Proyecto> post(@Valid @RequestBody Proyecto proyecto, HttpServletRequest request) {
+        HttpHeaders headers = new HttpHeaders();
+        RestTemplate restTemplate = new RestTemplate();
+        headers.set(AUTHORIZATION, request.getHeader(AUTHORIZATION));
+        HttpEntity<Object> requestEntity = new HttpEntity<>(headers);
+        if (request.getHeader(AUTHORIZATION).startsWith("Bearer ")) {
+            ResponseEntity<String> response = restTemplate.exchange(microServicioEmpresa + "/empresas/me", HttpMethod.GET, requestEntity, String.class);
+            String stringJason = response.getBody();
+            JsonNode jsonMap;
+            try { jsonMap = objectMapper.readTree(stringJason); } catch (JsonProcessingException e) { throw new RuntimeException(e); }
+            proyecto.setIdEmpresa(Long.valueOf(String.valueOf(jsonMap.get("id"))));
+            this.proyectoService.save(proyecto);
+            return new ResponseEntity<>(proyecto, HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/")
@@ -52,4 +76,6 @@ public class ProyectoController {
     public ResponseEntity<String> ping() {
         return new ResponseEntity<>("pong", HttpStatus.OK);
     }
+
+
 }

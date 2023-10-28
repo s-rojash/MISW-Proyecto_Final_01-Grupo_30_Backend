@@ -15,10 +15,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "candidato", uniqueConstraints = { @UniqueConstraint(columnNames = { "email" }) })
+@Table(name = "candidato", uniqueConstraints = { @UniqueConstraint(name = "emailUnique", columnNames = "email") })
 public class Candidato {
 
-    public Candidato(String nombres, String apellidos, String tipoDocumento, Double numDocumento, String celular, String email, String password, Date createdAt) {
+    public Candidato(String nombres, String apellidos, String tipoDocumento, Double numDocumento, String celular, String email, String password) {
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.tipoDocumento = tipoDocumento;
@@ -26,7 +26,7 @@ public class Candidato {
         this.celular = celular;
         this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
+        this.createdAt = new Date();
     }
 
     public Candidato(String email, String password) {

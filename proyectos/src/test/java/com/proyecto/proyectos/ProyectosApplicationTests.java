@@ -45,7 +45,8 @@ class ProyectosApplicationTests {
         });
 
         mockMvc.perform(post("/proyectos/").contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(proyecto)))
+                        .content(objectMapper.writeValueAsString(proyecto))
+                        .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTg1MTcyMzAsInN1YiI6IjciLCJuYmYiOjE2OTg1MTcyMzAsImV4cCI6MTY5ODUxOTAzMCwidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.EtuhXO1E8DwjjbGi5OpYLYT2D7CGpNYhkAaazAIqN2E"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(5L))
                 .andExpect(jsonPath("$.nombre").value("Proyecto 1"));

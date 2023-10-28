@@ -26,6 +26,8 @@ public class Respuesta {
     @NotEmpty(message = "El campo de estado no puede estar vacio")
     private String estado;
 
+    private Integer puntos;
+
     @ManyToOne
     @JoinColumn(name = "idPregunta")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

@@ -1,30 +1,32 @@
-package com.proyecto.proyectos;
+package com.proyecto.bancopreguntas;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.proyecto.proyectos.controller.PerfilController;
-import com.proyecto.proyectos.model.Perfil;
-import com.proyecto.proyectos.service.PerfilService;
+import com.proyecto.bancopreguntas.controller.CategoriaController;
+import com.proyecto.bancopreguntas.model.Categoria;
+import com.proyecto.bancopreguntas.service.CategoriaService;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(PerfilController.class)
+@WebMvcTest(CategoriaController.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class PerfilesApplicationTests {
+class CategoriasApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private PerfilService perfilService;
+    private CategoriaService categoriaService;
 
     ObjectMapper objectMapper;
     @BeforeEach
@@ -33,54 +35,54 @@ class PerfilesApplicationTests {
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Create perfil")
+    @DisplayName(value = "Test Controller - Create categoria")
     @Order(1)
     void savePerfil() throws Exception {
-        Perfil perfil = new Perfil(5L, "Perfil 1");
+        Categoria perfil = new Categoria(5L, "Categoria 1");
 
-        when(perfilService.save(any())).then(invocation -> {
-            Perfil u = invocation.getArgument(0);
+        when(categoriaService.save(any())).then(invocation -> {
+            Categoria u = invocation.getArgument(0);
             u.setId(5L);
             return u;
         });
 
-        mockMvc.perform(post("/perfiles/").contentType(MediaType.APPLICATION_JSON)
+        mockMvc.perform(post("/categorias/").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(perfil)))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(5L));
 
-        verify(perfilService).save(any());
+        verify(categoriaService).save(any());
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Get all perfiles")
+    @DisplayName(value = "Test Controller - Get all categorias")
     @Order(2)
     void getAllPerfiles() throws Exception {
-        Perfil perfil = new Perfil();
+        Categoria categoria = new Categoria();
 
-        mockMvc.perform(get("/perfiles/"))
+        mockMvc.perform(get("/categorias/"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Get id perfil")
+    @DisplayName(value = "Test Controller - Get id categoria")
     @Order(3)
     void getIdPerfil() throws Exception {
-        Perfil perfil = new Perfil();
+        Categoria categoria = new Categoria();
 
-        mockMvc.perform(get("/perfiles/1"))
+        mockMvc.perform(get("/categorias/1"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Delete id perfil")
+    @DisplayName(value = "Test Controller - Delete id categoria")
     @Order(4)
     void getdeletePerfil() throws Exception {
-        Perfil perfil = new Perfil(5L, "Proyecto 1");
+        Categoria categoria = new Categoria(5L, "Categoria 1");
 
-        when(perfilService.list(perfil.getId())).thenReturn(perfil);
+        when(categoriaService.list(categoria.getId())).thenReturn(categoria);
 
-        mockMvc.perform(delete("/perfiles/5"))
+        mockMvc.perform(delete("/categorias/5"))
                 .andExpect(status().isOk());
     }
 
@@ -88,7 +90,7 @@ class PerfilesApplicationTests {
     @DisplayName(value = "Test Controller - Ping pong")
     @Order(5)
     void testPing() throws Exception {
-        mockMvc.perform(get("/perfiles/ping").contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/categorias/ping").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 }
