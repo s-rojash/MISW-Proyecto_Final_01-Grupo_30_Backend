@@ -32,12 +32,10 @@ jobs:
         working-directory: candidatos
         run: |
           mvn test
-
       - name: Run test suite empresas
         working-directory: empresas
         run: |
           mvn test
-
       - name: Run test suite proyectos
         working-directory: proyectos
         run: |

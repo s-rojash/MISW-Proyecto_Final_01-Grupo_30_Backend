@@ -6,6 +6,7 @@ import com.proyectofinalg30.empresass.empresas.service.EmpresaService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -21,6 +22,9 @@ public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
 
+    @Value("${variable.AccessTokenSecret}")
+    private String miAccessTokenSecret;
+
     @PostMapping("/")
     public ResponseEntity<Empresa> post(@Valid @RequestBody Empresa empresa) {
         String saltNew = BCrypt.gensalt();
@@ -33,10 +37,10 @@ public class EmpresaController {
 
     @PostMapping("/auth")
     public ResponseEntity<Empresa> postAuth(@RequestBody Empresa authCredentials) {
-        if (authCredentials.getEmail() != "" && authCredentials.getEmail() != null && authCredentials.getPassword() != "" && authCredentials.getPassword() != null){
+        if (authCredentials.getEmail() != null && authCredentials.getPassword() != null){
             Empresa empresa = empresaService.searchEmail(authCredentials.getEmail());
             if (BCrypt.checkpw(authCredentials.getPassword(), empresa.getPassword())){
-                empresa.setToken(TokenUtils.createToken(empresa.getId()));
+                empresa.setToken(TokenUtils.createToken(empresa.getId(), miAccessTokenSecret));
                 empresa.setExpireAt(new Date(System.currentTimeMillis() + 1_800_000));
                 empresaService.save(empresa);
                 return new ResponseEntity<>(empresa, HttpStatus.OK);

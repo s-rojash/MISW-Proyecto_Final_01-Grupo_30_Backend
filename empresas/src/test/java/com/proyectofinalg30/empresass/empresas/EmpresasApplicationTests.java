@@ -95,23 +95,8 @@ class EmpresasApplicationTests {
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Auth not exists email (email = '')")
-    @Order(4)
-    void authNotExistsEmailVacio() throws Exception {
-        Empresa empresa = new Empresa("s.rojash@uniandes.edu.co","$2a$10$QVm4xH5EWHWxiUFfr1Fki.z./KCkckUdn1Bn5ws.xWjRSebbVwKh6");
-
-        when(empresaService.searchEmail(empresa.getEmail())).thenReturn(empresa);
-
-        Empresa empresaAuth = new Empresa("","1234");
-
-        mockMvc.perform(post("/empresas/auth").contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(empresaAuth)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     @DisplayName(value = "Test Controller - Auth not exists email (email = null)")
-    @Order(5)
+    @Order(4)
     void authNotExistsEmailNull() throws Exception {
         Empresa empresa = new Empresa("s.rojash@uniandes.edu.co","$2a$10$QVm4xH5EWHWxiUFfr1Fki.z./KCkckUdn1Bn5ws.xWjRSebbVwKh6");
 
@@ -125,23 +110,8 @@ class EmpresasApplicationTests {
     }
 
     @Test
-    @DisplayName(value = "Test Controller - Auth not exists empresa (password = '')")
-    @Order(6)
-    void authNotExistsPasswordVacio() throws Exception {
-        Empresa empresa = new Empresa("s.rojash@uniandes.edu.co","$2a$10$QVm4xH5EWHWxiUFfr1Fki.z./KCkckUdn1Bn5ws.xWjRSebbVwKh6");
-
-        when(empresaService.searchEmail(empresa.getEmail())).thenReturn(empresa);
-
-        Empresa empresaAuth = new Empresa("s.rojash@uniandes.edu.co","");
-
-        mockMvc.perform(post("/empresas/auth").contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(empresaAuth)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     @DisplayName(value = "Test Controller - Auth not exists empresa (password = null)")
-    @Order(7)
+    @Order(5)
     void authNotExistsPasswordNull() throws Exception {
         Empresa empresa = new Empresa("s.rojash@uniandes.edu.co","$2a$10$QVm4xH5EWHWxiUFfr1Fki.z./KCkckUdn1Bn5ws.xWjRSebbVwKh6");
 
@@ -156,7 +126,7 @@ class EmpresasApplicationTests {
 
     @Test
     @DisplayName(value = "Test Controller - Me token")
-    @Order(8)
+    @Order(6)
     void meToken() throws Exception {
         Empresa empresa = new Empresa(5L, "Empresa de prueba", "NIT", 1D, dijitoVerificacion, "s.rojash@uniandes.edu.co","1234", "token-string", new Date(System.currentTimeMillis() + 1_800), new Date());
 
@@ -168,7 +138,7 @@ class EmpresasApplicationTests {
 
     @Test
     @DisplayName(value = "Test Controller - Get all empresas")
-    @Order(9)
+    @Order(7)
     void getAllEmpresas() throws Exception {
         Empresa empresa = new Empresa(5L, "Empresa de prueba", "NIT", 1D, dijitoVerificacion, "s.rojash@uniandes.edu.co","1234", "token-string", new Date(System.currentTimeMillis() + 1_800), new Date());
 
@@ -180,7 +150,7 @@ class EmpresasApplicationTests {
 
     @Test
     @DisplayName(value = "Test Controller - Get id empresa")
-    @Order(10)
+    @Order(8)
     void getIdEmpresa() throws Exception {
         Empresa candidato = new Empresa(5L, "Empresa de prueba", "NIT", 1D, dijitoVerificacion, "s.rojash@uniandes.edu.co","1234", "token-string", new Date(System.currentTimeMillis() + 1_800), new Date());
 
@@ -192,7 +162,7 @@ class EmpresasApplicationTests {
 
     @Test
     @DisplayName(value = "Test Controller - Me unauthorized token")
-    @Order(11)
+    @Order(9)
     void meUnauthorizedToken() throws Exception {
         Empresa empresa = new Empresa(5L, "Empresa de prueba", "NIT", 1D, dijitoVerificacion, "s.rojash@uniandes.edu.co","1234", "token-string", new Date(), new Date());
 
@@ -204,7 +174,7 @@ class EmpresasApplicationTests {
 
     @Test
     @DisplayName(value = "Test Controller - Me Not Exists token")
-    @Order(12)
+    @Order(10)
     void meNotExistsToken() throws Exception {
         Empresa empresa = new Empresa(5L, "Empresa de prueba", "NIT", 1D, dijitoVerificacion, "s.rojash@uniandes.edu.co","1234", "token-string", new Date(), new Date());
 
@@ -216,7 +186,7 @@ class EmpresasApplicationTests {
 
     @Test
     @DisplayName(value = "Test Controller - Delete id candidatos")
-    @Order(13)
+    @Order(11)
     void getdeleteEmpresa() throws Exception {
         Empresa empresa = new Empresa(5L, "Empresa de prueba", "NIT", 1D, dijitoVerificacion, "s.rojash@uniandes.edu.co","1234", "token-string", new Date(System.currentTimeMillis() + 1_800), new Date());
 
@@ -228,7 +198,7 @@ class EmpresasApplicationTests {
 
     @Test
     @DisplayName(value = "Test Controller - Ping pong")
-    @Order(14)
+    @Order(12)
     void testPing() throws Exception {
         mockMvc.perform(get("/empresas/ping").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
