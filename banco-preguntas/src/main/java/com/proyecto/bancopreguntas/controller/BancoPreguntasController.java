@@ -1,11 +1,6 @@
 package com.proyecto.bancopreguntas.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.proyecto.bancopreguntas.model.BancoPreguntas;
-import com.proyecto.bancopreguntas.model.Categoria;
-import com.proyecto.bancopreguntas.repository.CategoriaRepository;
 import com.proyecto.bancopreguntas.service.BancoPreguntasService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -13,10 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -32,7 +25,7 @@ public class BancoPreguntasController {
     @PostMapping("/")
     public ResponseEntity<BancoPreguntas> post(@Valid @RequestBody BancoPreguntas bancoPreguntas, HttpServletRequest request) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         if (idEmpresa != null) {
             bancoPreguntas.setIdEmpresa(idEmpresa);
             this.bancoPreguntasService.save(bancoPreguntas);
@@ -46,14 +39,14 @@ public class BancoPreguntasController {
     @GetMapping("/")
     public List<BancoPreguntas> getAll(HttpServletRequest request) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return bancoPreguntasService.listAll(idEmpresa);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BancoPreguntas> getId(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         BancoPreguntas bancoPreguntas = bancoPreguntasService.list(idEmpresa, id);
         return new ResponseEntity<>(bancoPreguntas, HttpStatus.OK);
     }
@@ -61,21 +54,21 @@ public class BancoPreguntasController {
     @GetMapping("/tipo-banco/{tipoBanco}")
     public List<BancoPreguntas> getAllProyecto(HttpServletRequest request, @PathVariable String tipoBanco) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return bancoPreguntasService.listAllTipobanco(idEmpresa, tipoBanco);
     }
 
     @GetMapping("/categoria/{id}")
     public List<BancoPreguntas> getAllPerfil(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return bancoPreguntasService.listAllCategorias(idEmpresa, id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BancoPreguntas> delete(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         BancoPreguntas bancoPreguntas = bancoPreguntasService.list(idEmpresa, id);
         bancoPreguntasService.delete(bancoPreguntas);
         return new ResponseEntity<>(HttpStatus.OK);

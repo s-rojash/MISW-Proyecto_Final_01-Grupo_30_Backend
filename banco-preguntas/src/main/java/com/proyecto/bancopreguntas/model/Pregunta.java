@@ -37,15 +37,4 @@ public class Pregunta {
 
     @OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL)
     private Set<Respuesta> respuestas = new HashSet<>();
-//
-//    public Set<Respuesta> getRespuesta() {
-//        return respuestas;
-//    }
-//
-//    public void setRespuesta(Set<Respuesta> respuestas) {
-//        this.respuestas = respuestas;
-//        for(Respuesta respuesta : respuestas) {
-//            respuesta.setPregunta(this);
-//        }
-//    }
 }

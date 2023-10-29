@@ -1,8 +1,6 @@
 package com.proyecto.bancopreguntas.service;
 
-import com.proyecto.bancopreguntas.model.Pregunta;
 import com.proyecto.bancopreguntas.model.Respuesta;
-import com.proyecto.bancopreguntas.repository.PreguntaRepository;
 import com.proyecto.bancopreguntas.repository.RespuestaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
