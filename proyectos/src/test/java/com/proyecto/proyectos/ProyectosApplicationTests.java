@@ -33,6 +33,7 @@ class ProyectosApplicationTests {
         objectMapper = new ObjectMapper();
     }
 
+    String Token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTg1MzY5MTAsInN1YiI6IjciLCJuYmYiOjE2OTg1MzY5MTAsImV4cCI6MTcwMDMzNjkxMCwidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.SEQmGMIf32CU_EzlURqbRQIz6bqh4ePrW4wfWzq052g";
     @Test
     @DisplayName(value = "Test Controller - Create proyecto")
     @Order(1)
@@ -46,7 +47,7 @@ class ProyectosApplicationTests {
 
         mockMvc.perform(post("/proyectos/").contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(proyecto))
-                        .header("Authorization", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTg1MjUzNTcsInN1YiI6IjciLCJuYmYiOjE2OTg1MjUzNTcsImV4cCI6MTcwMDMyNTM1NywidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.S8N4k_OuT9ttCWovS5Xok-2LcaUuHWYDgOo_YfY1hac"))
+                        .header("Authorization", Token))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(5L))
                 .andExpect(jsonPath("$.nombre").value("Proyecto 1"));
@@ -63,7 +64,8 @@ class ProyectosApplicationTests {
 
         when(proyectoService.searchNombre(proyecto.getNombre())).thenReturn(proyecto);
 
-        mockMvc.perform(get("/proyectos/"))
+        mockMvc.perform(get("/proyectos/")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
@@ -74,9 +76,10 @@ class ProyectosApplicationTests {
         Proyecto proyecto = new Proyecto();
         proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
 
-        when(proyectoService.list(proyecto.getId())).thenReturn(proyecto);
+        when(proyectoService.list(7l, proyecto.getId())).thenReturn(proyecto);
 
-        mockMvc.perform(get("/proyectos/5"))
+        mockMvc.perform(get("/proyectos/5")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
@@ -88,7 +91,8 @@ class ProyectosApplicationTests {
 
         when(proyectoService.searchNombre(proyecto.getNombre())).thenReturn(proyecto);
 
-        mockMvc.perform(get("/proyectos/empresa/1"))
+        mockMvc.perform(get("/proyectos/5")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
@@ -98,9 +102,10 @@ class ProyectosApplicationTests {
     void getdeleteProyecto() throws Exception {
         Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
 
-        when(proyectoService.list(proyecto.getId())).thenReturn(proyecto);
+        when(proyectoService.list(7L, proyecto.getId())).thenReturn(proyecto);
 
-        mockMvc.perform(delete("/proyectos/5"))
+        mockMvc.perform(delete("/proyectos/5")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 

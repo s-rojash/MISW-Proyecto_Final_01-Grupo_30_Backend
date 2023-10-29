@@ -6,8 +6,10 @@ import com.proyecto.proyectos.model.Proyecto;
 import com.proyecto.proyectos.repository.PerfilRepository;
 import com.proyecto.proyectos.repository.ProyectoRepository;
 import com.proyecto.proyectos.service.EquipoService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,9 @@ public class EquipoController {
 
     @Autowired(required=false)
     private PerfilRepository perfilRepository;
+
+    @Value("${variable.MicroServicioEmpresa}")
+    private String microServicioEmpresa;
     @PostMapping("/")
     public ResponseEntity<Equipo> post(@Valid @RequestBody Equipo equipo) {
         Optional<Proyecto> proyectoOptional = proyectoRepository.findById(equipo.getProyecto().getId());
@@ -37,29 +42,39 @@ public class EquipoController {
         return new ResponseEntity<>(equipo, HttpStatus.CREATED);
     }
 
-    @GetMapping("/empresa/{idEmpresa}")
-    public List<Equipo> getAll(@PathVariable Long idEmpresa) {
-        return equipoService .listAll(idEmpresa);
+    @GetMapping("/")
+    public List<Equipo> getAll(HttpServletRequest request) {
+        FindEmpresa findEmpresa = new FindEmpresa();
+        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        return equipoService.listAll(idEmpresa);
     }
 
-    @GetMapping("/{id}/empresa/{idEmpresa}")
-    public ResponseEntity<Equipo> getId(@PathVariable Long idEmpresa, @PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Equipo> getId(HttpServletRequest request, @PathVariable Long id) {
+        FindEmpresa findEmpresa = new FindEmpresa();
+        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
         Equipo equipo = equipoService.list(idEmpresa, id);
         return new ResponseEntity<>(equipo, HttpStatus.OK);
     }
 
-    @GetMapping("/empresa/{idEmpresa}/proyecto/{id}")
-    public List<Equipo> getAllProyecto(@PathVariable Long idEmpresa, @PathVariable Long id) {
+    @GetMapping("/proyecto/{id}")
+    public List<Equipo> getAllProyecto(HttpServletRequest request, @PathVariable Long id) {
+        FindEmpresa findEmpresa = new FindEmpresa();
+        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
         return equipoService.listAllProyectos(idEmpresa, id);
     }
 
-    @GetMapping("/empresa/{idEmpresa}/perfil/{id}")
-    public List<Equipo> getAllPerfil(@PathVariable Long idEmpresa, @PathVariable Long id) {
+    @GetMapping("/perfil/{id}")
+    public List<Equipo> getAllPerfil(HttpServletRequest request, @PathVariable Long id) {
+        FindEmpresa findEmpresa = new FindEmpresa();
+        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
         return equipoService.listAllPerfiles(idEmpresa, id);
     }
 
-    @DeleteMapping("/{id}/empresa/{idEmpresa}")
-    public ResponseEntity<Equipo> delete(@PathVariable Long idEmpresa, Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Equipo> delete(HttpServletRequest request, @PathVariable Long id) {
+        FindEmpresa findEmpresa = new FindEmpresa();
+        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
         Equipo equipo = equipoService.list(idEmpresa, id);
         equipoService.delete(equipo);
         return new ResponseEntity<>(HttpStatus.OK);
