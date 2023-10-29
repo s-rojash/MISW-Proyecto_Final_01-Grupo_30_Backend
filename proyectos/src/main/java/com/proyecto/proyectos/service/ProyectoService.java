@@ -20,11 +20,7 @@ public class ProyectoService {
         return proyectoRepository.save(proyecto);
     }
 
-    public List<Proyecto> listAll() {
-        return proyectoRepository.findAll();
-    }
-
-    public Proyecto list(Long id) { return proyectoRepository.findOneById(id); }
+    public Proyecto list(Long idEmpresa, Long id) { return proyectoRepository.findOneById(idEmpresa, id); }
 
     public List<Proyecto> listEmpresa(Long idEmpresa) { return proyectoRepository.findAllByIdEmpresa(idEmpresa); }
     public void delete(Proyecto proyecto) {

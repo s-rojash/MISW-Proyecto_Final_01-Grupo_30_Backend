@@ -33,6 +33,9 @@ class EquiposApplicationTests {
     private EquipoService equipoService;
 
     ObjectMapper objectMapper;
+
+    String Token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTg1MzY5MTAsInN1YiI6IjciLCJuYmYiOjE2OTg1MzY5MTAsImV4cCI6MTcwMDMzNjkxMCwidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.SEQmGMIf32CU_EzlURqbRQIz6bqh4ePrW4wfWzq052g";
+
     @BeforeEach
     void config() {
         objectMapper = new ObjectMapper();
@@ -68,7 +71,8 @@ class EquiposApplicationTests {
         Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
         Equipo equipo = new Equipo(5L, proyecto, "Equipo 1", perfil, 1);
 
-        mockMvc.perform(get("/equipos/empresa/1"))
+        mockMvc.perform(get("/equipos/")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
@@ -78,7 +82,8 @@ class EquiposApplicationTests {
     void getIdEquipo() throws Exception {
         Equipo equipo = new Equipo();
 
-        mockMvc.perform(get("/equipos/1/empresa/1"))
+        mockMvc.perform(get("/equipos/1")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
@@ -88,7 +93,8 @@ class EquiposApplicationTests {
     void getAllProyectos() throws Exception {
         Equipo equipo = new Equipo();
 
-        mockMvc.perform(get("/equipos/empresa/1/proyecto/1"))
+        mockMvc.perform(get("/equipos/proyecto/1")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
@@ -98,7 +104,8 @@ class EquiposApplicationTests {
     void getIdPerfiles() throws Exception {
         Equipo equipo = new Equipo();
 
-        mockMvc.perform(get("/equipos/empresa/1/perfil/1"))
+        mockMvc.perform(get("/equipos/perfil/1")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
@@ -112,7 +119,8 @@ class EquiposApplicationTests {
 
         when(equipoService.list(proyecto.getIdEmpresa(), equipo.getId())).thenReturn(equipo);
 
-        mockMvc.perform(delete("/equipos/1/empresa/1"))
+        mockMvc.perform(delete("/equipos/1")
+                .header("Authorization", Token))
                 .andExpect(status().isOk());
     }
 
