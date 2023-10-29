@@ -32,22 +32,27 @@ public class PreguntaController {
     @PostMapping("/")
     public ResponseEntity<Pregunta> post(@Valid @RequestBody Pregunta preguntas) {
         Optional<BancoPreguntas> bancoPreguntaOptional = bancoPreguntasRepository.findById(preguntas.getBancoPreguntas().getId());
-        preguntas.setBancoPreguntas(bancoPreguntaOptional.get());
-        this.preguntaService.save(preguntas);
-        return new ResponseEntity<>(preguntas, HttpStatus.CREATED);
+        if(bancoPreguntaOptional.isPresent()) {
+            preguntas.setBancoPreguntas(bancoPreguntaOptional.get());
+            this.preguntaService.save(preguntas);
+            return new ResponseEntity<>(preguntas, HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/banco-preguntas/{id}")
     public List<Pregunta> getAll(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return preguntaService.listAll(idEmpresa, id);
     }
 
     @GetMapping("/{id}/banco-preguntas/{idBanco}")
     public ResponseEntity<Pregunta> getId(HttpServletRequest request, @PathVariable Long idBanco, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         Pregunta pregunta = preguntaService.list(idEmpresa, idBanco, id);
         return new ResponseEntity<>(pregunta, HttpStatus.OK);
     }
@@ -55,7 +60,7 @@ public class PreguntaController {
     @DeleteMapping("/{id}/banco-preguntas/{idBanco}")
     public ResponseEntity<Pregunta> delete(HttpServletRequest request, @PathVariable Long idBanco, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         Pregunta pregunta = preguntaService.list(idEmpresa, idBanco, id);
         preguntaService.delete(pregunta);
         return new ResponseEntity<>(HttpStatus.OK);

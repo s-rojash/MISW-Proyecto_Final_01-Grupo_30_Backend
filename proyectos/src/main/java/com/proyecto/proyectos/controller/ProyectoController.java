@@ -24,7 +24,7 @@ public class ProyectoController {
     @PostMapping("/")
     public ResponseEntity<Proyecto> post(@Valid @RequestBody Proyecto proyecto, HttpServletRequest request) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         if (idEmpresa != null) {
             proyecto.setIdEmpresa(idEmpresa);
             this.proyectoService.save(proyecto);
@@ -38,14 +38,14 @@ public class ProyectoController {
     @GetMapping("/")
     public List<Proyecto> getIdEmpresas(HttpServletRequest request) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return proyectoService.listEmpresa(idEmpresa);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Proyecto> getid(@PathVariable Long id, HttpServletRequest request) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         Proyecto proyecto = proyectoService.list(idEmpresa, id);
         return new ResponseEntity<>(proyecto, HttpStatus.OK);
     }
@@ -54,7 +54,7 @@ public class ProyectoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Proyecto> delete(@PathVariable Long id, HttpServletRequest request) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         Proyecto proyecto = proyectoService.list(idEmpresa, id);
         proyectoService.delete(proyecto);
         return new ResponseEntity<>(HttpStatus.OK);

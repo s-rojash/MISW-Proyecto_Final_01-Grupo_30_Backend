@@ -45,14 +45,14 @@ public class EquipoController {
     @GetMapping("/")
     public List<Equipo> getAll(HttpServletRequest request) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return equipoService.listAll(idEmpresa);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Equipo> getId(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         Equipo equipo = equipoService.list(idEmpresa, id);
         return new ResponseEntity<>(equipo, HttpStatus.OK);
     }
@@ -60,21 +60,21 @@ public class EquipoController {
     @GetMapping("/proyecto/{id}")
     public List<Equipo> getAllProyecto(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return equipoService.listAllProyectos(idEmpresa, id);
     }
 
     @GetMapping("/perfil/{id}")
     public List<Equipo> getAllPerfil(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         return equipoService.listAllPerfiles(idEmpresa, id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Equipo> delete(HttpServletRequest request, @PathVariable Long id) {
         FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.FindEmpresa(microServicioEmpresa, request);
+        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
         Equipo equipo = equipoService.list(idEmpresa, id);
         equipoService.delete(equipo);
         return new ResponseEntity<>(HttpStatus.OK);
