@@ -34,26 +34,26 @@ class ProyectosApplicationTests {
     }
 
     String Token = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTg1MzY5MTAsInN1YiI6IjciLCJuYmYiOjE2OTg1MzY5MTAsImV4cCI6MTcwMDMzNjkxMCwidHlwZSI6ImFjY2VzcyIsImZyZXNoIjpmYWxzZX0.SEQmGMIf32CU_EzlURqbRQIz6bqh4ePrW4wfWzq052g";
-//    @Test
-//    @DisplayName(value = "Test Controller - Create proyecto")
-//    @Order(1)
-//    void saveProyecto() throws Exception {
-//        Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
-//        when(proyectoService.save(any())).then(invocation -> {
-//            Proyecto u = invocation.getArgument(0);
-//            u.setId(5L);
-//            return u;
-//        });
-//
-//        mockMvc.perform(post("/proyectos/").contentType(MediaType.APPLICATION_JSON)
-//                        .content(objectMapper.writeValueAsString(proyecto))
-//                        .header("Authorization", Token))
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(jsonPath("$.id").value(5L))
-//                .andExpect(jsonPath("$.nombre").value("Proyecto 1"));
-//
-//        verify(proyectoService).save(any());
-//    }
+    @Test
+    @DisplayName(value = "Test Controller - Create proyecto")
+    @Order(1)
+    void saveProyecto() throws Exception {
+        Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
+        when(proyectoService.save(any())).then(invocation -> {
+            Proyecto u = invocation.getArgument(0);
+            u.setId(5L);
+            return u;
+        });
+
+        mockMvc.perform(post("/proyectos/").contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(proyecto))
+                        .header("Authorization", Token))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.id").value(5L))
+                .andExpect(jsonPath("$.nombre").value("Proyecto 1"));
+
+        verify(proyectoService).save(any());
+    }
 
     @Test
     @DisplayName(value = "Test Controller - Get all proyectos")
