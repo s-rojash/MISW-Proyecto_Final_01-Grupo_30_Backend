@@ -17,7 +17,15 @@
         <java.version>17</java.version>
         <sonar.organization>s-rojash</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.exclusions>com/proyecto/bancopreguntas/service/*.class, com/proyecto/bancopreguntas/controller/BancoPreguntasController.class, com/proyecto/bancopreguntas/controller/PreguntaController.class, com/proyecto/bancopreguntas/controller/RespuestaController.class, com/proyecto/bancopreguntas/controller/FindEmpresa.class, com/proyecto/bancopreguntas/model/BancoPreguntas.class, com/proyecto/bancopreguntas/model/Pregunta.class, com/proyecto/bancopreguntas/model/Respuesta.class</sonar.exclusions>
+        <sonar.exclusions>com/proyecto/bancopreguntas/service/*.class,
+            com/proyecto/bancopreguntas/controller/BancoPreguntasController.class,
+            com/proyecto/bancopreguntas/controller/PreguntaController.class,
+            com/proyecto/bancopreguntas/controller/RespuestaController.class,
+            com/proyecto/bancopreguntas/controller/FindEmpresa.class,
+            com/proyecto/bancopreguntas/model/BancoPreguntas.class,
+            com/proyecto/bancopreguntas/model/Pregunta.class,
+            com/proyecto/bancopreguntas/model/Respuesta.class,
+            com/proyecto/bancopreguntas/model/AgendarPrueba.class</sonar.exclusions>
     </properties>
     <dependencies>
         <dependency>
@@ -133,6 +141,7 @@
                         <exclude>com/proyecto/bancopreguntas/model/BancoPreguntas.class</exclude>
                         <exclude>com/proyecto/bancopreguntas/model/Pregunta.class</exclude>
                         <exclude>com/proyecto/bancopreguntas/model/Respuesta.class</exclude>
+                        <exclude>com/proyecto/bancopreguntas/model/AgendarPrueba.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
