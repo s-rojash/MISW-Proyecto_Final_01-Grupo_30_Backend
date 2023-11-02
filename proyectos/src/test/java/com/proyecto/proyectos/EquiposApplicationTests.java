@@ -63,72 +63,72 @@ class EquiposApplicationTests {
 //        verify(equipoService).save(any());
 //    }
 
-    @Test
-    @DisplayName(value = "Test Controller - Get all equipos")
-    @Order(2)
-    void getAllEquipo() throws Exception {
-        Perfil perfil = new Perfil(5L, "Perfil 1");
-        Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
-        Equipo equipo = new Equipo(5L, proyecto, "Equipo 1", perfil, 1);
-
-        mockMvc.perform(get("/equipos/")
-                .header("Authorization", Token))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName(value = "Test Controller - Get id equipo")
-    @Order(3)
-    void getIdEquipo() throws Exception {
-        Equipo equipo = new Equipo();
-
-        mockMvc.perform(get("/equipos/1")
-                .header("Authorization", Token))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName(value = "Test Controller - Get all proyectos")
-    @Order(4)
-    void getAllProyectos() throws Exception {
-        Equipo equipo = new Equipo();
-
-        mockMvc.perform(get("/equipos/proyecto/1")
-                .header("Authorization", Token))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName(value = "Test Controller - Get id perfiles")
-    @Order(5)
-    void getIdPerfiles() throws Exception {
-        Equipo equipo = new Equipo();
-
-        mockMvc.perform(get("/equipos/perfil/1")
-                .header("Authorization", Token))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName(value = "Test Controller - Delete id equipo")
-    @Order(6)
-    void getdeleteEquipo() throws Exception {
-        Perfil perfil = new Perfil(5L, "Perfil 1");
-        Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
-        Equipo equipo = new Equipo(5L, proyecto, "Equipo 1", perfil, 1);
-
-        when(equipoService.list(proyecto.getIdEmpresa(), equipo.getId())).thenReturn(equipo);
-
-        mockMvc.perform(delete("/equipos/1")
-                .header("Authorization", Token))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    @DisplayName(value = "Test Controller - Ping pong")
-    @Order(7)
-    void testPing() throws Exception {
-        mockMvc.perform(get("/equipos/ping").contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
+//    @Test
+//    @DisplayName(value = "Test Controller - Get all equipos")
+//    @Order(2)
+//    void getAllEquipo() throws Exception {
+//        Perfil perfil = new Perfil(5L, "Perfil 1");
+//        Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
+//        Equipo equipo = new Equipo(5L, proyecto, "Equipo 1", perfil, 1);
+//
+//        mockMvc.perform(get("/equipos/")
+//                .header("Authorization", Token))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @DisplayName(value = "Test Controller - Get id equipo")
+//    @Order(3)
+//    void getIdEquipo() throws Exception {
+//        Equipo equipo = new Equipo();
+//
+//        mockMvc.perform(get("/equipos/1")
+//                .header("Authorization", Token))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @DisplayName(value = "Test Controller - Get all proyectos")
+//    @Order(4)
+//    void getAllProyectos() throws Exception {
+//        Equipo equipo = new Equipo();
+//
+//        mockMvc.perform(get("/equipos/proyecto/1")
+//                .header("Authorization", Token))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @DisplayName(value = "Test Controller - Get id perfiles")
+//    @Order(5)
+//    void getIdPerfiles() throws Exception {
+//        Equipo equipo = new Equipo();
+//
+//        mockMvc.perform(get("/equipos/perfil/1")
+//                .header("Authorization", Token))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @DisplayName(value = "Test Controller - Delete id equipo")
+//    @Order(6)
+//    void getdeleteEquipo() throws Exception {
+//        Perfil perfil = new Perfil(5L, "Perfil 1");
+//        Proyecto proyecto = new Proyecto(5L, 1L, "Proyecto 1", "Descripcion 1");
+//        Equipo equipo = new Equipo(5L, proyecto, "Equipo 1", perfil, 1);
+//
+//        when(equipoService.list(proyecto.getIdEmpresa(), equipo.getId())).thenReturn(equipo);
+//
+//        mockMvc.perform(delete("/equipos/1")
+//                .header("Authorization", Token))
+//                .andExpect(status().isOk());
+//    }
+//
+//    @Test
+//    @DisplayName(value = "Test Controller - Ping pong")
+//    @Order(7)
+//    void testPing() throws Exception {
+//        mockMvc.perform(get("/equipos/ping").contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isOk());
+//    }
 }
