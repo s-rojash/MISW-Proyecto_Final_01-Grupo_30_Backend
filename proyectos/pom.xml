@@ -17,7 +17,13 @@
         <java.version>17</java.version>
         <sonar.organization>s-rojash</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
-        <sonar.exclusions>com/proyecto/proyectos/service/*.class, com/proyecto/proyectos/model/Equipo., com/proyecto/proyectos/controler/ProyectoController.class</sonar.exclusions>
+        <sonar.exclusions>com/proyecto/proyectos/service/*.class,
+            com/proyecto/proyectos/model/Equipo.class,
+            com/proyecto/proyectos/model/Pefil.class,
+            com/proyecto/proyectos/model/Proyecto.class,
+            com/proyecto/proyectos/controler/ProyectoController.class,
+            com/proyecto/proyectos/controler/PerfilController.class,
+            com/proyecto/proyectos/controler/FindEmpresa.class</sonar.exclusions>
     </properties>
     <dependencies>
         <dependency>
@@ -122,7 +128,11 @@
                     <excludes>
                         <exclude>com/proyecto/proyectos/service/*.class</exclude>
                         <exclude>com/proyecto/proyectos/controler/ProyectoController.class</exclude>
+                        <exclude>com/proyecto/proyectos/controler/PerfilController.class</exclude>
+                        <exclude>com/proyecto/proyectos/controler/FindEmpresa.class</exclude>
                         <exclude>com/proyecto/proyectos/model/Equipo.class</exclude>
+                        <exclude>com/proyecto/proyectos/model/Pefil.class</exclude>
+                        <exclude>com/proyecto/proyectos/model/Proyecto.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
