@@ -1,5 +1,7 @@
 package com.proyecto.bancopreguntas.model;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -31,4 +33,7 @@ public class BancoPreguntas {
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
+
+    @ManyToMany(mappedBy = "PruebaBancos")
+    Set<Prueba> pruebas;
 }
