@@ -22,7 +22,6 @@ public class TokenUtils {
                         .setSigningKey(miAccessTokenSecret.getBytes())
                         .parseClaimsJws(bearerToken);
                 Claims body = claimsJws.getBody();
-                System.out.println("IdEmpresa: "+body.get("idEmpresa"));
                 return (String) body.get("idEmpresa");
             } catch (Exception e) {
                 return null;
