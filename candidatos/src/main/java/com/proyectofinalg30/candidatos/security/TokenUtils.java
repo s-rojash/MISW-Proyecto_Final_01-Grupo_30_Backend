@@ -19,12 +19,10 @@ public class TokenUtils {
         Date expirationDate = new Date(System.currentTimeMillis() + expirationTime);
 
         Map<String, Object> extra = new HashMap<>();
-        extra.put("type", "access");
-        extra.put("fresh", false);
+        extra.put("idCandidato", String.valueOf(id));
+        
         return Jwts.builder()
-                .setHeaderParam("typ", "JWT")
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setSubject(String.valueOf(id))
                 .setNotBefore(new Date(System.currentTimeMillis()))
                 .setExpiration(expirationDate)
                 .addClaims(extra)

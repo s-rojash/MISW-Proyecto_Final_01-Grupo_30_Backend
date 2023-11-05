@@ -1,6 +1,8 @@
 package com.proyecto.bancopreguntas.repository;
 
 import com.proyecto.bancopreguntas.model.BancoPreguntas;
+import com.proyecto.bancopreguntas.model.Categoria;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -22,4 +24,6 @@ public interface BancoPreguntasRepository extends JpaRepository<BancoPreguntas, 
 
     @Query("SELECT b FROM BancoPreguntas b WHERE b.idEmpresa = :idEmpresa and b.tipoBanco = :tipoBanco")
     List<BancoPreguntas> findBancoPreguntasByIdAndIdEmpresaAndTipoBanco(@Param("idEmpresa") Long idEmpresa, @Param("tipoBanco") String tipoBanco);
+
+    BancoPreguntas findOneById(Long id);
 }

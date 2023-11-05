@@ -1,6 +1,7 @@
 package com.proyecto.proyectos.controller;
 
 import com.proyecto.proyectos.model.Proyecto;
+import com.proyecto.proyectos.security.TokenUtils;
 import com.proyecto.proyectos.service.ProyectoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -18,15 +19,14 @@ public class ProyectoController {
     @Autowired
     private ProyectoService proyectoService;
 
-    @Value("${variable.MicroServicioEmpresa}")
-    private String microServicioEmpresa;
+    @Value("${variable.AccessTokenSecret}")
+    private String miAccessTokenSecret;
 
     @PostMapping("/")
     public ResponseEntity<Proyecto> post(@Valid @RequestBody Proyecto proyecto, HttpServletRequest request) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
         if (idEmpresa != null) {
-            proyecto.setIdEmpresa(idEmpresa);
+            proyecto.setIdEmpresa(Long.valueOf(idEmpresa));
             this.proyectoService.save(proyecto);
             return new ResponseEntity<>(proyecto, HttpStatus.CREATED);
         }
@@ -37,25 +37,22 @@ public class ProyectoController {
 
     @GetMapping("/")
     public List<Proyecto> getIdEmpresas(HttpServletRequest request) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return proyectoService.listEmpresa(idEmpresa);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return proyectoService.listEmpresa(Long.valueOf(idEmpresa));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Proyecto> getid(@PathVariable Long id, HttpServletRequest request) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        Proyecto proyecto = proyectoService.list(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        Proyecto proyecto = proyectoService.list(Long.valueOf(idEmpresa), id);
         return new ResponseEntity<>(proyecto, HttpStatus.OK);
     }
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Proyecto> delete(@PathVariable Long id, HttpServletRequest request) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        Proyecto proyecto = proyectoService.list(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        Proyecto proyecto = proyectoService.list(Long.valueOf(idEmpresa), id);
         proyectoService.delete(proyecto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
