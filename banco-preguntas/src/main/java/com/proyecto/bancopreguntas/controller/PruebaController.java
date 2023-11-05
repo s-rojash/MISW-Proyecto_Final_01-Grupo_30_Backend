@@ -1,9 +1,9 @@
 package com.proyecto.bancopreguntas.controller;
 
-import com.proyecto.bancopreguntas.model.Prueba;
 import com.proyecto.bancopreguntas.repository.PruebaRepository;
 import com.proyecto.bancopreguntas.security.TokenUtils;
 import com.proyecto.bancopreguntas.service.PruebaService;
+import com.proyecto.bancopreguntas.model.Prueba;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/pruebas")
 public class PruebaController {
