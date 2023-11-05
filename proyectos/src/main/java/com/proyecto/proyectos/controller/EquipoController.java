@@ -5,6 +5,7 @@ import com.proyecto.proyectos.model.Perfil;
 import com.proyecto.proyectos.model.Proyecto;
 import com.proyecto.proyectos.repository.PerfilRepository;
 import com.proyecto.proyectos.repository.ProyectoRepository;
+import com.proyecto.proyectos.security.TokenUtils;
 import com.proyecto.proyectos.service.EquipoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,8 +31,9 @@ public class EquipoController {
     @Autowired(required=false)
     private PerfilRepository perfilRepository;
 
-    @Value("${variable.MicroServicioEmpresa}")
-    private String microServicioEmpresa;
+    @Value("${variable.AccessTokenSecret}")
+    private String miAccessTokenSecret;
+    
     @PostMapping("/")
     public ResponseEntity<Equipo> post(@Valid @RequestBody Equipo equipo) {
         Optional<Proyecto> proyectoOptional = proyectoRepository.findById(equipo.getProyecto().getId());
@@ -44,38 +46,33 @@ public class EquipoController {
 
     @GetMapping("/")
     public List<Equipo> getAll(HttpServletRequest request) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return equipoService.listAll(idEmpresa);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return equipoService.listAll(Long.valueOf(idEmpresa));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Equipo> getId(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        Equipo equipo = equipoService.list(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        Equipo equipo = equipoService.list(Long.valueOf(idEmpresa), id);
         return new ResponseEntity<>(equipo, HttpStatus.OK);
     }
 
     @GetMapping("/proyecto/{id}")
     public List<Equipo> getAllProyecto(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return equipoService.listAllProyectos(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return equipoService.listAllProyectos(Long.valueOf(idEmpresa), id);
     }
 
     @GetMapping("/perfil/{id}")
     public List<Equipo> getAllPerfil(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return equipoService.listAllPerfiles(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return equipoService.listAllPerfiles(Long.valueOf(idEmpresa), id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Equipo> delete(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        Equipo equipo = equipoService.list(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        Equipo equipo = equipoService.list(Long.valueOf(idEmpresa), id);
         equipoService.delete(equipo);
         return new ResponseEntity<>(HttpStatus.OK);
     }
