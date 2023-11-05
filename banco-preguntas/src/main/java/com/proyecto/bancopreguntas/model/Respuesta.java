@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Pregunta")
+@Table(name = "pregunta")
 public class Respuesta {
 
     @Id
@@ -28,7 +28,7 @@ public class Respuesta {
 
     private Integer puntos;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idPregunta")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Pregunta pregunta;

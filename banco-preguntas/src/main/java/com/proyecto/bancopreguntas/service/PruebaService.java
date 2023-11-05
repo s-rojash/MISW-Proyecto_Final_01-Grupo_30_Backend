@@ -18,11 +18,11 @@ public class PruebaService {
         return pruebaRepository.save(prueba);
     }
 
-    public List<Prueba> listAll() {
-        return pruebaRepository.findAll();
+    public List<Prueba> listAll(Long idEmpresa) {
+        return pruebaRepository.findPruebaByIdEmpresa(idEmpresa);
     }
 
-    public Prueba list(Long id) { return pruebaRepository.findOneById(id); }
+    public Prueba list(Long idEmpresa, Long id) { return pruebaRepository.findPruebaByIdAndIdEmpresa(idEmpresa, id); }
 
     public void delete(Prueba prueba) {
         pruebaRepository.delete(prueba);

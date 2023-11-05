@@ -1,7 +1,9 @@
 package com.proyecto.bancopreguntas.controller;
 
 import com.proyecto.bancopreguntas.model.BancoPreguntas;
+import com.proyecto.bancopreguntas.security.TokenUtils;
 import com.proyecto.bancopreguntas.service.BancoPreguntasService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +21,14 @@ public class BancoPreguntasController {
     @Autowired
     private BancoPreguntasService bancoPreguntasService;
 
-    @Value("${variable.MicroServicioEmpresa}")
-    private String microServicioEmpresa;
+    @Value("${variable.AccessTokenSecret}")
+    private String miAccessTokenSecret;
 
     @PostMapping("/")
     public ResponseEntity<BancoPreguntas> post(@Valid @RequestBody BancoPreguntas bancoPreguntas, HttpServletRequest request) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
         if (idEmpresa != null) {
-            bancoPreguntas.setIdEmpresa(idEmpresa);
+            bancoPreguntas.setIdEmpresa(Long.valueOf(idEmpresa));
             this.bancoPreguntasService.save(bancoPreguntas);
             return new ResponseEntity<>(bancoPreguntas, HttpStatus.CREATED);
         }
@@ -38,38 +39,33 @@ public class BancoPreguntasController {
 
     @GetMapping("/")
     public List<BancoPreguntas> getAll(HttpServletRequest request) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return bancoPreguntasService.listAll(idEmpresa);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return bancoPreguntasService.listAll(Long.valueOf(idEmpresa));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BancoPreguntas> getId(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        BancoPreguntas bancoPreguntas = bancoPreguntasService.list(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        BancoPreguntas bancoPreguntas = bancoPreguntasService.list(Long.valueOf(idEmpresa), id);
         return new ResponseEntity<>(bancoPreguntas, HttpStatus.OK);
     }
 
     @GetMapping("/tipo-banco/{tipoBanco}")
     public List<BancoPreguntas> getAllProyecto(HttpServletRequest request, @PathVariable String tipoBanco) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return bancoPreguntasService.listAllTipobanco(idEmpresa, tipoBanco);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return bancoPreguntasService.listAllTipobanco(Long.valueOf(idEmpresa), tipoBanco);
     }
 
     @GetMapping("/categoria/{id}")
     public List<BancoPreguntas> getAllPerfil(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return bancoPreguntasService.listAllCategorias(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return bancoPreguntasService.listAllCategorias(Long.valueOf(idEmpresa), id);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BancoPreguntas> delete(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        BancoPreguntas bancoPreguntas = bancoPreguntasService.list(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        BancoPreguntas bancoPreguntas = bancoPreguntasService.list(Long.valueOf(idEmpresa), id);
         bancoPreguntasService.delete(bancoPreguntas);
         return new ResponseEntity<>(HttpStatus.OK);
     }

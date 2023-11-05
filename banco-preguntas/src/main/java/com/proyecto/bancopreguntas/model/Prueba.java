@@ -3,6 +3,9 @@ package com.proyecto.bancopreguntas.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -15,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "Prueba")
+@Table(name = "prueba")
 public class Prueba {
 
     @Id
@@ -26,20 +29,20 @@ public class Prueba {
     private String nombre;
 
     @NotEmpty(message = "El campo de descripción no puede estar vacio")
-    private String despcripcion;
+    private String descripcion;
 
     @ManyToMany
-    @JoinTable(
-    name = "PruebaBancos", 
-    joinColumns = @JoinColumn(name = "idPrueba"), 
-    inverseJoinColumns = @JoinColumn(name = "idBancoPrueba"))
-    Set<BancoPreguntas> PruebaBancos = new HashSet<>();
+    @JsonBackReference
+    @JoinTable(name = "PruebaBancos", 
+    joinColumns = @JoinColumn(name = "idPrueba", referencedColumnName = "id"), 
+    inverseJoinColumns = @JoinColumn(name = "idBancoPreguntas", referencedColumnName = "id"))
+    private Set<BancoPreguntas> bancoPreguntas;
 
-    public Set<BancoPreguntas> getBancos() {
-		return PruebaBancos;
-	}
+    public Set<BancoPreguntas> getBancosPreguntas() {
+      return bancoPreguntas;
+    }
 
-	public void setBancos(Set<BancoPreguntas> PruebaBancos) {
-		this.PruebaBancos = PruebaBancos;
+	public void setBancosPreguntas(Set<BancoPreguntas> bancoPreguntas) {
+		this.bancoPreguntas = bancoPreguntas;
 	}
 }

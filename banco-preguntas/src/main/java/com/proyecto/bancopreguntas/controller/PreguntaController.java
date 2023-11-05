@@ -3,6 +3,7 @@ package com.proyecto.bancopreguntas.controller;
 import com.proyecto.bancopreguntas.model.BancoPreguntas;
 import com.proyecto.bancopreguntas.model.Pregunta;
 import com.proyecto.bancopreguntas.repository.BancoPreguntasRepository;
+import com.proyecto.bancopreguntas.security.TokenUtils;
 import com.proyecto.bancopreguntas.service.PreguntaService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -26,8 +27,8 @@ public class PreguntaController {
     @Autowired(required=false)
     private BancoPreguntasRepository bancoPreguntasRepository;
 
-    @Value("${variable.MicroServicioEmpresa}")
-    private String microServicioEmpresa;
+    @Value("${variable.AccessTokenSecret}")
+    private String miAccessTokenSecret;
 
     @PostMapping("/")
     public ResponseEntity<Pregunta> post(@Valid @RequestBody Pregunta preguntas) {
@@ -44,24 +45,21 @@ public class PreguntaController {
 
     @GetMapping("/banco-preguntas/{id}")
     public List<Pregunta> getAll(HttpServletRequest request, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        return preguntaService.listAll(idEmpresa, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        return preguntaService.listAll(Long.valueOf(idEmpresa), id);
     }
 
     @GetMapping("/{id}/banco-preguntas/{idBanco}")
     public ResponseEntity<Pregunta> getId(HttpServletRequest request, @PathVariable Long idBanco, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        Pregunta pregunta = preguntaService.list(idEmpresa, idBanco, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        Pregunta pregunta = preguntaService.list(Long.valueOf(idEmpresa), idBanco, id);
         return new ResponseEntity<>(pregunta, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}/banco-preguntas/{idBanco}")
     public ResponseEntity<Pregunta> delete(HttpServletRequest request, @PathVariable Long idBanco, @PathVariable Long id) {
-        FindEmpresa findEmpresa = new FindEmpresa();
-        Long idEmpresa = findEmpresa.findEmpresa(microServicioEmpresa, request);
-        Pregunta pregunta = preguntaService.list(idEmpresa, idBanco, id);
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        Pregunta pregunta = preguntaService.list(Long.valueOf(idEmpresa), idBanco, id);
         preguntaService.delete(pregunta);
         return new ResponseEntity<>(HttpStatus.OK);
     }
