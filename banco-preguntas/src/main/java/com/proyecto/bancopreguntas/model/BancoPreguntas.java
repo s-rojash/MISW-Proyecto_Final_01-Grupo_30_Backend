@@ -1,5 +1,10 @@
 package com.proyecto.bancopreguntas.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -12,7 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "BancoPreguntas")
+@Table(name = "bancoPreguntas")
 public class BancoPreguntas {
 
     @Id
