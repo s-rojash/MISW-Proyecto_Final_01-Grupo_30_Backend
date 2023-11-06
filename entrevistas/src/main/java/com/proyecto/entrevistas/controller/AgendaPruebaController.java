@@ -5,19 +5,17 @@ import com.proyecto.entrevistas.security.TokenUtils;
 import com.proyecto.entrevistas.service.AgendaPruebaService;
 
 import jakarta.servlet.http.HttpServletRequest;
-
-import org.springframework.beans.factory.annotation.Value;
-
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
-@RequestMapping("/Agenda-pruebas")
+@RequestMapping("/agenda-pruebas")
 public class AgendaPruebaController {
 
     @Autowired
@@ -27,7 +25,9 @@ public class AgendaPruebaController {
     private String miAccessTokenSecret;
     
     @PostMapping("/")
-    public ResponseEntity<AgendaPrueba> post(@RequestBody AgendaPrueba agendaPrueba) {
+    public ResponseEntity<AgendaPrueba> post(@RequestBody AgendaPrueba agendaPrueba, HttpServletRequest request) {
+        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        agendaPrueba.setIdEmpresa(Long.parseLong(idEmpresa));
         this.agendaPruebaService.save(agendaPrueba);
         return new ResponseEntity<>(agendaPrueba, HttpStatus.CREATED);
     }

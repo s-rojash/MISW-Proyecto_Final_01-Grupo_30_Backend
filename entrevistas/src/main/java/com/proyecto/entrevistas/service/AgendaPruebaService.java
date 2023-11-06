@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class AgendaPruebaService {
 
-    // @Autowired
+    @Autowired
     private AgendaPruebaRepository agendaPruebaRepository;
 
     public AgendaPrueba save(AgendaPrueba agendaPrueba) {
