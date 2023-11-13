@@ -17,9 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Date;
 
@@ -29,6 +27,7 @@ class AgendaPruebaApplicationTests {
 
     @Autowired
     private MockMvc mockMvc;
+    private String token = "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTk4Mzk1ODcsIm5iZiI6MTY5OTgzOTU4NywiZXhwIjoxNzAxNjM5NTg3LCJpZEVtcHJlc2EiOiIxIn0.Q678kMC7lTpvME5jkpxVMFdhsJR7zIfUUPV6aTpyNK4";
 
     @MockBean
     private AgendaPruebaService agendaPruebaService;
@@ -51,11 +50,13 @@ class AgendaPruebaApplicationTests {
             return u;
         });
 
-        mockMvc.perform(post("/agenda-pruebas/").contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(agendaPrueba)))
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(5L))
-                .andExpect(jsonPath("$.email").value("s.rojash@uniandes.edu.co"));
+        mockMvc.perform(post("/agenda-pruebas/")
+        .header("Authorization","Bearer " + token)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(agendaPrueba)))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.id").value(5L))
+        .andExpect(jsonPath("$.idPrueba").value(3));
 
         verify(agendaPruebaService).save(any());
     }
@@ -64,7 +65,7 @@ class AgendaPruebaApplicationTests {
     @DisplayName(value = "Test Controller - Get all AgendaPrueba")
     @Order(2)
     void getAllAgendaPrueba() throws Exception {
-        mockMvc.perform(get("/agenda-pruebas/").header("Authorization","Bearer token-string"))
+        mockMvc.perform(get("/agenda-pruebas/").header("Authorization","Bearer " + token))
                 .andExpect(status().isOk());
     }
 
@@ -74,7 +75,7 @@ class AgendaPruebaApplicationTests {
     void getIdAgendaPrueba() throws Exception {
         AgendaPrueba agendaPrueba = new AgendaPrueba(5,1,2,3,new Date(System.currentTimeMillis()), 5, "ok");
 
-        mockMvc.perform(get("/agenda-pruebas/5").header("Authorization","Bearer token-string"))
+        mockMvc.perform(get("/agenda-pruebas/5").header("Authorization","Bearer " + token))
                 .andExpect(status().isOk());
     }
 

@@ -28,6 +28,7 @@ public class ResultadosPruebaController {
     private String miAccessTokenSecret;
     
     @PostMapping("/")
+    @ResponseBody
     public ResponseEntity<ResultadoPrueba> post(@RequestBody ResultadoPrueba resultadoPrueba, HttpServletRequest request) {
         this.resultadoPruebaService.save(resultadoPrueba);
         return new ResponseEntity<>(resultadoPrueba, HttpStatus.CREATED);
