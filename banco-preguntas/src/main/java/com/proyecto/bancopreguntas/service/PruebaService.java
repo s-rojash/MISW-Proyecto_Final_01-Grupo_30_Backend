@@ -1,7 +1,7 @@
 package com.proyecto.bancopreguntas.service;
 
-import com.proyecto.bancopreguntas.model.Prueba;
 import com.proyecto.bancopreguntas.repository.PruebaRepository;
+import com.proyecto.bancopreguntas.model.Prueba;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

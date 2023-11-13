@@ -1,8 +1,8 @@
-package com.proyecto.bancopreguntas.model;
+package com.proyecto.entrevistas.model;
 
-import java.sql.Date;
-
+import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -13,32 +13,27 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Table(name = "agendarPrueba")
-public class AgendarPrueba {
+@Table(name = "resultado_prueba")
+public class ResultadoPrueba {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long idCandidato;
-
-    @ManyToOne
-    @JoinColumn(name = "idPrueba")
-    private Prueba prueba;
-
-    public void setPrueba(Prueba prueba) {
-        this.prueba = prueba;
-    }
+    private Long idAgendaPrueba;
 
     @Column(name = "fecha")
 	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
 
-    private Integer puntos;
-
-    @NotEmpty(message = "El campo de estado no puede estar vacio")
-    private String estado;
-
+    public ResultadoPrueba(
+        Long id, 
+        Long idAgendaPrueba,
+        java.util.Date fecha
+        ){
+            this.id = id;
+            this.idAgendaPrueba = idAgendaPrueba;
+            this.fecha = fecha;
+        }
 }
