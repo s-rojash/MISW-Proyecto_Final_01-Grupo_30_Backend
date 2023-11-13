@@ -1,6 +1,6 @@
 package com.proyecto.entrevistas.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -31,11 +31,28 @@ public class AgendaPrueba {
 
     @Column(name = "fecha")
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	private Date fecha;
+	private java.util.Date fecha;
 
     private Integer puntos;
 
     @NotEmpty(message = "El campo de estado no puede estar vacio")
     private String estado;
 
+    public AgendaPrueba(
+        long id,
+        long idEmpresa,
+        long idCandidato,
+        long idPrueba,
+        Date fecha,
+        Integer puntos,
+        String estado    
+    ){
+        this.id = id;
+        this.idEmpresa = idEmpresa;
+        this.idCandidato = idCandidato;
+        this.idPrueba = idPrueba;
+        this.fecha = fecha;
+        this.puntos = puntos;
+        this.estado = estado;
+    }
 }

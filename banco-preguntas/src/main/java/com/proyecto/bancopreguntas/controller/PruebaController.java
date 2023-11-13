@@ -1,6 +1,5 @@
 package com.proyecto.bancopreguntas.controller;
 
-import com.proyecto.bancopreguntas.repository.PruebaRepository;
 import com.proyecto.bancopreguntas.security.TokenUtils;
 import com.proyecto.bancopreguntas.service.PruebaService;
 import com.proyecto.bancopreguntas.model.Prueba;
@@ -57,4 +56,5 @@ public class PruebaController {
     public ResponseEntity<String> ping() {
         return new ResponseEntity<>("pong", HttpStatus.OK);
     }
+    
 }

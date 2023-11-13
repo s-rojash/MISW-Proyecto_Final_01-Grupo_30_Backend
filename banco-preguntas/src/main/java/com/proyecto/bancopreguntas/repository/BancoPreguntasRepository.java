@@ -1,7 +1,6 @@
 package com.proyecto.bancopreguntas.repository;
 
 import com.proyecto.bancopreguntas.model.BancoPreguntas;
-import com.proyecto.bancopreguntas.model.Categoria;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

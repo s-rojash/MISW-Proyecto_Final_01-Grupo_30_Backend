@@ -45,16 +45,4 @@ public class AgendaPruebaController {
         return new ResponseEntity<>(AgendaPrueba, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<AgendaPrueba> delete(@PathVariable Long id, HttpServletRequest request) {
-        String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
-        AgendaPrueba AgendaPrueba = agendaPruebaService.list(Long.valueOf(idEmpresa), id);
-        agendaPruebaService.delete(AgendaPrueba);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/ping")
-    public ResponseEntity<String> ping() {
-        return new ResponseEntity<>("pong", HttpStatus.OK);
-    }
 }
