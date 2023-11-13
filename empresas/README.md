@@ -31,3 +31,9 @@ En este aparatado se menciona la herramienta utilizada para el análisis de cove
 ![img_2.png](img_2.png)
 
 ![img_3.png](img_3.png)
+
+### Run
+
+Para ejecutar cada microservicio se requiere ejecutar el siguiente comando
+
+```.\mvnw spring-boot:run```

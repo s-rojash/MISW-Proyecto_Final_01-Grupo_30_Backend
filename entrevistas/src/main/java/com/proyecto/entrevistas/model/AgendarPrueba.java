@@ -1,8 +1,10 @@
-package com.proyecto.bancopreguntas.model;
+package com.proyecto.entrevistas.model;
 
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.proyecto.bancopreguntas.model.Prueba;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
