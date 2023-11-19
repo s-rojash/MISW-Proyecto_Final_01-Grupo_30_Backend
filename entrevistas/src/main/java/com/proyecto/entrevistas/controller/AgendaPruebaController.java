@@ -1,6 +1,7 @@
 package com.proyecto.entrevistas.controller;
 
 import com.proyecto.entrevistas.model.AgendaPrueba;
+import com.proyecto.entrevistas.model.ViewModelAgendaCandidato;
 import com.proyecto.entrevistas.security.TokenUtils;
 import com.proyecto.entrevistas.service.AgendaPruebaService;
 
@@ -44,5 +45,10 @@ public class AgendaPruebaController {
         AgendaPrueba AgendaPrueba = agendaPruebaService.list(Long.valueOf(idEmpresa), id);
         return new ResponseEntity<>(AgendaPrueba, HttpStatus.OK);
     }
-
+    @GetMapping("/ListarAgendaPruebaCandidado/{id}")
+    public ResponseEntity<List<ViewModelAgendaCandidato>> listarAgendaPruebaCandidado(@PathVariable Long id, HttpServletRequest request) {
+        //String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
+        List<ViewModelAgendaCandidato> retorno = agendaPruebaService.listarAgendaPruebaCandidato(id);
+        return new ResponseEntity<>(retorno, HttpStatus.OK);
+    }
 }
