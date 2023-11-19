@@ -1,4 +1,4 @@
-package com.proyecto.bancopreguntas.model;
+package com.proyecto.entrevistas.model;
 
 import java.util.Set;
 
@@ -28,19 +28,4 @@ public class Prueba {
 
     @NotEmpty(message = "El campo de descripción no puede estar vacio")
     private String descripcion;
-
-    @ManyToMany
-    @JsonBackReference
-    @JoinTable(name = "PruebaBancos", 
-    joinColumns = @JoinColumn(name = "idPrueba", referencedColumnName = "id"), 
-    inverseJoinColumns = @JoinColumn(name = "idBancoPreguntas", referencedColumnName = "id"))
-    private Set<BancoPreguntas> bancoPreguntas;
-
-    public Set<BancoPreguntas> getBancosPreguntas() {
-      return bancoPreguntas;
-    }
-
-	public void setBancosPreguntas(Set<BancoPreguntas> bancoPreguntas) {
-		this.bancoPreguntas = bancoPreguntas;
-	}
 }
