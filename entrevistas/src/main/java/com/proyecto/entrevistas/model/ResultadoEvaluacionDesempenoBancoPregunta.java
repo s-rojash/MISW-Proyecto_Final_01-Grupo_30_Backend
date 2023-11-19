@@ -11,14 +11,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "resultado_prueba_banco_pregunta")
-public class ResultadoPruebaBancoPregunta {
+@Table(name = "resultado_evaluacion_desempeno_banco_pregunta")
+public class ResultadoEvaluacionDesempenoBancoPregunta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long idResultadoPrueba;
+    private Long idResultadoEvaluacionDesempeno;
     private Long idBancoPreguntas;
     private Long idPregunta;
     private Long idRespuesta;

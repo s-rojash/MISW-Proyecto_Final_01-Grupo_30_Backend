@@ -1,9 +1,6 @@
 package com.proyecto.entrevistas.repository;
 
-import com.proyecto.entrevistas.model.AgendaPrueba;
 import com.proyecto.entrevistas.model.ResultadoPrueba;
-
-import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

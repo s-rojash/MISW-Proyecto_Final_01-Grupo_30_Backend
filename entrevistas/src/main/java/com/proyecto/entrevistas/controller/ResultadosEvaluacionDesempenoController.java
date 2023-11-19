@@ -1,7 +1,7 @@
 package com.proyecto.entrevistas.controller;
 
-import com.proyecto.entrevistas.model.ResultadoPrueba;
-import com.proyecto.entrevistas.service.ResultadoPruebaService;
+import com.proyecto.entrevistas.model.ResultadoEvaluacionDesempeno;
+import com.proyecto.entrevistas.service.ResultadoEvaluacionDesempenoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(maxAge = 3600)
-@RequestMapping("/resultados-pruebas")
-public class ResultadosPruebaController {
+@RequestMapping("/resultados-evaluacion-desepeno")
+public class ResultadosEvaluacionDesempenoController {
 
     @Autowired
-    private ResultadoPruebaService resultadoPruebaService;
+    private ResultadoEvaluacionDesempenoService resultadoEvaluacionDesempenoService;
 
     @Value("${variable.AccessTokenSecret}")
     private String miAccessTokenSecret;
     
     @PostMapping("/")
     @ResponseBody
-    public ResponseEntity<ResultadoPrueba> post(@RequestBody ResultadoPrueba resultadoPrueba, HttpServletRequest request) {
-        this.resultadoPruebaService.save(resultadoPrueba);
-        return new ResponseEntity<>(resultadoPrueba, HttpStatus.CREATED);
+    public ResponseEntity<ResultadoEvaluacionDesempeno> post(@RequestBody ResultadoEvaluacionDesempeno resultadoEvaluacionDesempeno, HttpServletRequest request) {
+        this.resultadoEvaluacionDesempenoService.save(resultadoEvaluacionDesempeno);
+        return new ResponseEntity<>(resultadoEvaluacionDesempeno, HttpStatus.CREATED);
     }
 
     // @GetMapping("/")
