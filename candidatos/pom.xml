@@ -17,6 +17,9 @@
         <java.version>17</java.version>
         <sonar.organization>s-rojash</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.exclusions>com/proyectofinalg30/candidatos/service/*.class,
+            com/proyectofinalg30/candidatos/controller/CandidatoHabilidadController.class,
+            com/proyectofinalg30/candidatos/model/CandidatoHabilidad.class</sonar.exclusions>
     </properties>
     <dependencies>
         <dependency>
@@ -144,6 +147,8 @@
                 <configuration>
                     <excludes>
                         <exclude>com/proyectofinalg30/candidatos/service/*.class</exclude>
+                        <exclude>com/proyectofinalg30/candidatos/controller/CandidatoHabilidadController.class</exclude>
+                        <exclude>com/proyectofinalg30/candidatos/model/CandidatoHabilidad.class</exclude>
                     </excludes>
                 </configuration>
             </plugin>
