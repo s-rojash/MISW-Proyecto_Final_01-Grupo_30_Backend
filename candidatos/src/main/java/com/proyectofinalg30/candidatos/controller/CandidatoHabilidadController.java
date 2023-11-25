@@ -63,7 +63,6 @@ public class CandidatoHabilidadController {
 
     @GetMapping("/habilidades")
     public List<CandidatoHabilidad> getTipoHabilidad2(@RequestParam("habilidades") List<Long> habilidades) {
-        System.out.println("------ Habilidades: " + habilidades);
         return candidatoHabilidadService.searchHabilidadBusqueda(habilidades);
     }
 
