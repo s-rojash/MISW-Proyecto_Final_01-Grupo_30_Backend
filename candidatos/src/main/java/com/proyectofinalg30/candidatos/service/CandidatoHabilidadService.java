@@ -17,6 +17,10 @@ public class CandidatoHabilidadService {
         return candidatoHabilidadRepository.findOneByHabilidad_Id(id);
     }
 
+    public List<CandidatoHabilidad> searchHabilidadBusqueda(List<Long> id) {
+        return candidatoHabilidadRepository.findOneByHabilidadBusqueda(id);
+    }
+
     public List<CandidatoHabilidad> searchCandidato(Long id) {
         return candidatoHabilidadRepository.findOneByCandidato_Id(id);
     }

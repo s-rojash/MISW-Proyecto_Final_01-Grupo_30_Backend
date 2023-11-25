@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 
 @CrossOrigin(maxAge = 3600)
@@ -30,10 +31,10 @@ public class CandidatoHabilidadController {
     @Autowired(required=false)
     private HabilidadRepository habilidadRepository;
     @PostMapping("/")
-    public ResponseEntity<CandidatoHabilidad> post(@Valid @RequestBody CandidatoHabilidad candidatoHabilidad) {
+    public ResponseEntity<?> post(@Valid @RequestBody CandidatoHabilidad candidatoHabilidad) {
         Optional<Candidato> candidatoOptional = candidatoRepository.findById(candidatoHabilidad.getCandidato().getId());
         Optional<Habilidad> habilidadOptional = habilidadRepository.findById(candidatoHabilidad.getHabilidad().getId());
-        if(candidatoOptional.isPresent() && habilidadOptional.isPresent()){
+        if(candidatoOptional.isPresent() && habilidadOptional.isPresent()) {
             candidatoHabilidad.setCandidato(candidatoOptional.get());
             candidatoHabilidad.setHabilidad(habilidadOptional.get());
             this.candidatoHabilidadService.save(candidatoHabilidad);
@@ -58,6 +59,12 @@ public class CandidatoHabilidadController {
     @GetMapping("/habilidades/{id}")
     public List<CandidatoHabilidad> getTipoHabilidad(@PathVariable Long id) {
         return candidatoHabilidadService.searchHabilidad(id);
+    }
+
+    @GetMapping("/habilidades")
+    public List<CandidatoHabilidad> getTipoHabilidad2(@RequestParam("habilidades") List<Long> habilidades) {
+        System.out.println("------ Habilidades: " + habilidades);
+        return candidatoHabilidadService.searchHabilidadBusqueda(habilidades);
     }
 
     @GetMapping("/candidatos/{id}")
