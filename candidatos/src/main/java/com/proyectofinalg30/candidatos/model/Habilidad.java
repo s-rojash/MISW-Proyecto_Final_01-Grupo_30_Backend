@@ -22,7 +22,7 @@ public class Habilidad {
     @NotEmpty(message = "El campo de tipo de habilidad no puede estar vacio")
     private String tipoHabilidad;
 
-    @NotEmpty(message = "El campo de habilidad no puede estar vacio")
     private String habilidad;
 
+    private String habilidad_en;
 }
