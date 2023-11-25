@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -65,5 +67,4 @@ public class Candidato {
     private Date expireAt;
 
     private Date createdAt;
-
 }
