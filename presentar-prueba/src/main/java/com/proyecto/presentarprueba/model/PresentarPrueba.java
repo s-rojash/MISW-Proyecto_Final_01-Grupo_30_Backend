@@ -19,6 +19,8 @@ public class PresentarPrueba {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long idPruebaCandidato;
+
     private Long idCandidato;
 
     private Long idPrueba;

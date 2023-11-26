@@ -3,6 +3,7 @@ package com.proyecto.bancopreguntas.controller;
 import com.proyecto.bancopreguntas.model.Prueba;
 import com.proyecto.bancopreguntas.model.PruebaCandidato;
 import com.proyecto.bancopreguntas.repository.PruebaRepository;
+import com.proyecto.bancopreguntas.security.EmailService;
 import com.proyecto.bancopreguntas.security.TokenUtils;
 import com.proyecto.bancopreguntas.service.PruebaCandidatoService;
 import com.proyecto.bancopreguntas.service.PruebaService;
@@ -31,12 +32,22 @@ public class PruebaCandidatoController {
     @Autowired(required=false)
     private PruebaRepository pruebaRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     @PostMapping("/")
     public ResponseEntity<PruebaCandidato> post(@RequestBody PruebaCandidato pruebaCandidato) {
         Optional<Prueba> pruebaOptional = pruebaRepository.findById(pruebaCandidato.getPrueba().getId());
         if(pruebaOptional.isPresent()) {
             pruebaCandidato.setPrueba(pruebaOptional.get());
             this.pruebaCandidatoService.save(pruebaCandidato);
+
+//            String destinatario = "sarojas04@hotmail.com";
+//            String asunto = "Asunto del correo";
+//            String cuerpo = "Cuerpo del correo";
+//
+//            emailService.enviarCorreo(destinatario, asunto, cuerpo);
+
             return new ResponseEntity<>(pruebaCandidato, HttpStatus.CREATED);
         }
         else {
