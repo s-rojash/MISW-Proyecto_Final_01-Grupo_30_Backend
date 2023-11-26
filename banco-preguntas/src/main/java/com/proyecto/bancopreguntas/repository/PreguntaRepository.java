@@ -17,4 +17,9 @@ public interface PreguntaRepository extends JpaRepository<Pregunta, Long> {
     @Query("SELECT p FROM Pregunta p JOIN p.bancoPreguntas bp WHERE bp.idEmpresa = :idEmpresa and bp.id = :idBanco and p.id = :id ")
     Pregunta findPreguntasByIdAndIdEmpresa(@Param("idEmpresa") Long idEmpresa, @Param("idBanco") Long idBanco, @Param("id") Long id);
 
+    @Query("SELECT p FROM Pregunta p JOIN p.bancoPreguntas bp WHERE bp.id = :id ")
+    List<Pregunta> findPreguntasByIdEmpresaAndBancoPreguntasC(@Param("id") Long id);
+
+    @Query("SELECT p FROM Pregunta p JOIN p.bancoPreguntas bp WHERE bp.id = :idBanco and p.id = :id ")
+    Pregunta findPreguntasByIdAndIdEmpresaC(@Param("idBanco") Long idBanco, @Param("id") Long id);
 }

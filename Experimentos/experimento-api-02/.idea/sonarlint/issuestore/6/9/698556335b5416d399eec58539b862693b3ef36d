@@ -1,0 +1,36 @@
+
+P
+java:S1141l"5Extract this nested try block into a separate method.(¡»¢üùÿÿÿÿ
+y
+java:S1488*"cImmediately return this expression instead of assigning it to the temporary variable "queueClient".(±‚ùŸ
+t
+java:S1488A"^Immediately return this expression instead of assigning it to the temporary variable "result".(ÒÇœÒ
+Q	java:S125"<This block of commented-out lines of code should be removed.(Ì •Ø
+V	java:S125"<This block of commented-out lines of code should be removed.(İóıÿÿÿÿ
+E	java:S106"+Replace this use of System.out by a logger.(„‡½ƒıÿÿÿÿ
+?	java:S106"+Replace this use of System.out by a logger.(Ê¢“	
+V	java:S125 "<This block of commented-out lines of code should be removed.(û¡„éøÿÿÿÿ
+c	java:S100#"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨¶Åş
+H
+java:S1135&"2Complete the task associated to this TODO comment.(³ŞÕÒ
+h	java:S1002"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¢ŒÙşÿÿÿÿ
+@	java:S1063"+Replace this use of System.out by a logger.(¥¦€­
+h	java:S1009"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(“Ğ°˜şÿÿÿÿ
+@	java:S106:"+Replace this use of System.out by a logger.(æ»ş
+c	java:S100F"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§Òæ‡
+E	java:S106G"+Replace this use of System.out by a logger.(ÍĞçùÿÿÿÿ
+@	java:S106K"+Replace this use of System.out by a logger.(ÑÕã£
+c	java:S100N"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã×Ò‚
+E	java:S106O"+Replace this use of System.out by a logger.(ïöÑşÿÿÿÿ
+b	java:S100Y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¥”ô5
+E	java:S106]"+Replace this use of System.out by a logger.(Ùë¹—øÿÿÿÿ
+h	java:S100a"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æºè´ûÿÿÿÿ
+E	java:S106g"+Replace this use of System.out by a logger.(ÕÀô¹ıÿÿÿÿ
+V	java:S125j"<This block of commented-out lines of code should be removed.(òııÿÿÿÿ
+Q	java:S125t"<This block of commented-out lines of code should be removed.(¯½é“
+@	java:S106w"+Replace this use of System.out by a logger.(æ½‘
+h	java:S100}"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(›È«ûÿÿÿÿ
+E	java:S106~"+Replace this use of System.out by a logger.(š´¢´üÿÿÿÿ
+A	java:S106‚"+Replace this use of System.out by a logger.(åÇğş
+@	java:S106…"+Replace this use of System.out by a logger.(Çğõ"
+ssecrets:S6338("ZMake sure this Azure Storage Account Key gets revoked, changed, and removed from the code.(ïı¥Ø

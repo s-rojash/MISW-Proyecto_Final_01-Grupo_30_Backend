@@ -23,6 +23,12 @@ public class PreguntaService {
 
     public Pregunta list(Long idEmpresa, Long idBanco, Long id) { return preguntaRepository.findPreguntasByIdAndIdEmpresa(idEmpresa, idBanco, id); }
 
+    public List<Pregunta> listAllCandidato(Long id) {
+        return preguntaRepository.findPreguntasByIdEmpresaAndBancoPreguntasC(id);
+    }
+
+    public Pregunta listCandidato(Long idBanco, Long id) { return preguntaRepository.findPreguntasByIdAndIdEmpresaC(idBanco, id); }
+
     public void delete(Pregunta pregunta) {
         preguntaRepository.delete(pregunta);
     }
