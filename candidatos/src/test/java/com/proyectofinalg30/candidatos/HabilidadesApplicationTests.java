@@ -44,7 +44,7 @@ class HabilidadesApplicationTests {
     @DisplayName(value = "Test Controller - Create habilidades")
     @Order(1)
     void saveHabilidad() throws Exception {
-        Habilidad habilidad = new Habilidad(1L,"Blandas","Puntualidad");
+        Habilidad habilidad = new Habilidad(1L,"Blandas","Puntualidad","Puntualidad");
         when(habilidadService.save(any())).then(invocation -> {
             Habilidad u = invocation.getArgument(0);
             u.setId(1L);
@@ -65,7 +65,7 @@ class HabilidadesApplicationTests {
     @DisplayName(value = "Test Controller - Get all habilidades")
     @Order(2)
     void getAllHabilidades() throws Exception {
-        Habilidad habilidad = new Habilidad(1L, "Blandas","Puntualidad");
+        Habilidad habilidad = new Habilidad(1L, "Blandas","Puntualidad","Puntualidad");
 
         when(habilidadService.list(habilidad.getId())).thenReturn(habilidad);
 
@@ -77,7 +77,7 @@ class HabilidadesApplicationTests {
     @DisplayName(value = "Test Controller - Get id habilidad")
     @Order(3)
     void getIdHabilidad() throws Exception {
-        Habilidad habilidad = new Habilidad(1L, "Blandas","Puntualidad");
+        Habilidad habilidad = new Habilidad(1L, "Blandas","Puntualidad","Puntualidad");
 
         when(habilidadService.list(habilidad.getId())).thenReturn(habilidad);
 
@@ -91,7 +91,7 @@ class HabilidadesApplicationTests {
     @DisplayName(value = "Test Controller - Delete id habilidad")
     @Order(6)
     void getdeleteCandidatos() throws Exception {
-        Habilidad habilidad = new Habilidad(1L, "Blandas","Puntualidad");
+        Habilidad habilidad = new Habilidad(1L, "Blandas","Puntualidad","Puntualidad");
 
         when(habilidadService.list(habilidad.getId())).thenReturn(habilidad);
 

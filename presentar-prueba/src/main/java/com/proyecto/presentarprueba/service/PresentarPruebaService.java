@@ -26,7 +26,7 @@ public class PresentarPruebaService {
     }
 
     public List<PresentarPrueba> listParametros(Long idPrueba, Long idCandidato) {
-        return presentarPruebaRepository.findPresntarPruebaByIdCandidatoAndIdPrueba(idCandidato, idPrueba);
+        return presentarPruebaRepository.findPresntarPruebaByIdCandidatoAndIdPrueba(idPrueba, idCandidato);
     }
 
     public void delete(PresentarPrueba presentarPrueba) {

@@ -13,7 +13,7 @@ public interface PresentarPruebaRepository extends JpaRepository<PresentarPrueba
 
     @Query("SELECT pp FROM PresentarPrueba pp WHERE pp.id = :id and pp.idCandidato = :idCandidato")
     PresentarPrueba findPresntarPruebaById(@Param("id") Long id, @Param("idCandidato") Long idCandidato);
-    @Query("SELECT pp FROM PresentarPrueba pp WHERE pp.idCandidato = :idCandidato and pp.idPregunta = :idPrueba")
+    @Query("SELECT pp FROM PresentarPrueba pp WHERE pp.idCandidato = :idCandidato and pp.idPrueba = :idPrueba")
     List<PresentarPrueba> findPresntarPruebaByIdCandidatoAndIdPrueba(@Param("idPrueba") Long idPrueba, @Param("idCandidato") Long idCandidato);
 
 }
