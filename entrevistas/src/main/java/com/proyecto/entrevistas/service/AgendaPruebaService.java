@@ -1,6 +1,7 @@
 package com.proyecto.entrevistas.service;
 
 import com.proyecto.entrevistas.model.AgendaPrueba;
+import com.proyecto.entrevistas.model.ViewModelAgendaCandidato;
 import com.proyecto.entrevistas.repository.AgendaPruebaRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class AgendaPruebaService {
     }
 
     public AgendaPrueba list(Long idEmpresa, Long id) { return agendaPruebaRepository.findAgendaPruebaByIdAndIdEmpresa(idEmpresa, id); }
+
+    public List<ViewModelAgendaCandidato> listarAgendaPruebaCandidato(Long idCandidato) { 
+        return agendaPruebaRepository.listarAgendaPruebaCandidato(idCandidato); 
+    }
+
 
     public void delete(AgendaPrueba agendaPrueba) {
         agendaPruebaRepository.delete(agendaPrueba);

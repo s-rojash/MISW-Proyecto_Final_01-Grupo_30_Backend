@@ -1,5 +1,8 @@
 package com.proyecto.bancopreguntas.controller;
 
+import com.proyecto.bancopreguntas.model.BancoPreguntas;
+import com.proyecto.bancopreguntas.repository.BancoPreguntasRepository;
+import com.proyecto.bancopreguntas.repository.PruebaRepository;
 import com.proyecto.bancopreguntas.security.TokenUtils;
 import com.proyecto.bancopreguntas.service.PruebaService;
 import com.proyecto.bancopreguntas.model.Prueba;
@@ -13,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
@@ -24,6 +28,9 @@ public class PruebaController {
 
     @Value("${variable.AccessTokenSecret}")
     private String miAccessTokenSecret;
+
+    @Autowired(required=false)
+    private BancoPreguntasRepository bancoPreguntasRepository;
 
     @PostMapping("/")
     public ResponseEntity<Prueba> post(@RequestBody Prueba prueba) {

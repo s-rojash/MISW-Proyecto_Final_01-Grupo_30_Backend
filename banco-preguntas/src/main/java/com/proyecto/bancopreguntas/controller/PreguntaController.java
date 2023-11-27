@@ -56,6 +56,17 @@ public class PreguntaController {
         return new ResponseEntity<>(pregunta, HttpStatus.OK);
     }
 
+    @GetMapping("/candidato-banco-preguntas/{id}")
+    public List<Pregunta> getAllCandiadto(@PathVariable Long id) {
+        return preguntaService.listAllCandidato(id);
+    }
+
+    @GetMapping("/{id}/candidato-banco-preguntas/{idBanco}")
+    public ResponseEntity<Pregunta> getIdCandidato(@PathVariable Long idBanco, @PathVariable Long id) {
+        Pregunta pregunta = preguntaService.listCandidato(idBanco, id);
+        return new ResponseEntity<>(pregunta, HttpStatus.OK);
+    }
+
     @DeleteMapping("/{id}/banco-preguntas/{idBanco}")
     public ResponseEntity<Pregunta> delete(HttpServletRequest request, @PathVariable Long idBanco, @PathVariable Long id) {
         String idEmpresa = TokenUtils.decryptToken(request, miAccessTokenSecret);
